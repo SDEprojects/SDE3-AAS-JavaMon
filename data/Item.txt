@@ -1,0 +1,29 @@
+<class>
+    <item>
+        <name>Potion</name>
+        <effect>20</effect>
+        <description>A potion made from medicinal herbs... It heals 20 HP</description>
+        <price>100</price>
+    </item>
+
+    <item>
+        <name>Super Potion</name>
+        <effect>50</effect>
+        <description>A stronger mix of the regular potion... It heals 50 HP</description>
+        <price>500</price>
+    </item>
+
+    <item>
+        <name>Full Heal</name>
+        <effect>max hp</effect>
+        <description>An extremely potent medicine... It fully heals your Pokemon</description>
+        <price>1000</price>
+    </item>
+
+    <item>
+        <name>Revive</name>
+        <effect>revive</effect>
+        <description>A strange crystal that brings Pokemon back from fainting... Heals 1/2 max hp</description>
+        <price>2500</price>
+    </item>
+</class>

@@ -1,0 +1,68 @@
+<?xml version = "1.0"?>
+<class>
+    <attack>
+        <name>Tackle</name>
+        <damage>2</damage>
+        <energy>20</energy>
+    </attack>
+    <attack>
+        <name>Scratch</name>
+        <damage>2</damage>
+        <energy>20</energy>
+    </attack>
+    <attack>
+        <name>Vine Whip</name>
+        <damage>3</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Ember</name>
+        <damage>3</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Water Gun</name>
+        <damage>3</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Bite</name>
+        <damage>3</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Peck</name>
+        <damage>3</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Sting</name>
+        <damage>3</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Confusion</name>
+        <damage>3</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Rock Tomb</name>
+        <damage>4</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Thunder Shock</name>
+        <damage>4</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Rock Throw</name>
+        <damage>4</damage>
+        <energy>10</energy>
+    </attack>
+    <attack>
+        <name>Karate Chop</name>
+        <damage>4</damage>
+        <energy>10</energy>
+    </attack>
+</class>

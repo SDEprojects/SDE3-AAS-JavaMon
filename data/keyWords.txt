@@ -1,0 +1,20 @@
+<?xml version = "1.0"?>
+<keywords>
+   <action activity = "01">
+      <engage>interact touch</engage>
+      <communicate>talk speak</communicate>
+      <utilize>use utilize</utilize>
+      <check>check look</check>
+      <buy>buy purchase</buy>
+      <get>get</get>
+      <go>move go proceed jump walk run leap dance</go>
+      <up>north up</up>
+      <down>south down</down>
+      <left>west left</left>
+      <right>east right</right>
+      <bag>bag backpack pack</bag>
+      <map>map atlas</map>
+      <pokemon>pokemon monster</pokemon>
+      <help>help hel hep</help>
+   </action>
+</keywords>
