@@ -37,8 +37,8 @@ public class GUI2nd {
     PrintStream pokemonDisplayOut = new PrintStream(new CustomOutputStream(pokemonDisplay));
 
     private GameEngine gameEngine = new GameEngine();
-    private CombatEngineGui combatEngine = new CombatEngineGui();
-    private String starter;
+    private CombatEngineGui combatEngine = new CombatEngineGui(); // DROP DOWN MENU FOR BATTLES
+    private String starter; // We can get rid of this by writing better method
     private Player player1 = new Player();
     private InitXML game = new InitXML();
     private TextParserGUI parser = new TextParserGUI();
