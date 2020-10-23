@@ -11,7 +11,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.io.File;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 /*The TextParser class parses and validates the user (console) inputs*/
@@ -21,8 +24,9 @@ public class TextParserGUI {
     System.setOut(commonDisplayOut);
     try {
         if (inputValidation(userInput)) {
-            String userActions = userInput.split(" ")[0];
-            String userArgument = userInput.split(" ", 2)[1];
+
+            String userActions = trimUnnecessaryWords(userInput).split(" ")[0].trim();
+            String userArgument = trimUnnecessaryWords(userInput).split(" ", 2)[1].trim();
 
             File inputFile = new File("data", "keyWords.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -39,9 +43,9 @@ public class TextParserGUI {
             //System.out.println("----------------------------");
 
             // iterates over node list of tag names "action"
-            for (int temp = 0; temp < nList.getLength(); temp++) {
+            for (int i = 0; i < nList.getLength(); i++) {
                 // fetches node item from list by their index position
-                Node nNode = nList.item(temp);
+                Node nNode = nList.item(i);
                 // System.out.println("Node list length is: " + nList.getLength());
                 // prints current node name
                 // System.out.println("\nCurrent Element :" + nNode.getNodeName());
@@ -155,6 +159,17 @@ public class TextParserGUI {
     }
     System.setOut(System.out);
 }
+
+    public String trimUnnecessaryWords(String input) {
+        // TODO: MOVE WORDSTOIGNORE COLLECTION OUT OF CODE
+        ArrayList<String> wordsToIgnore = new ArrayList<String>(Arrays.asList("to", "with", "against", "toward", "the", "a", "an", "for", "at"));
+        for(int i = 0; i < input.split(" ").length; i++) {
+            if(wordsToIgnore.contains(input.split(" ")[i]))  {
+                input = input.replace(input.split(" ")[i], "");
+            }
+        }
+        return input;
+    }
     // change to package private?
     // make public for unit-testing purpose? APIs available to text private methods but may not be best practice
     private boolean inputValidation(String input) {
