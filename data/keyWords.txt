@@ -15,6 +15,6 @@
       <bag>bag backpack pack</bag>
       <map>map atlas</map>
       <pokemon>pokemon monster</pokemon>
-      <help>help hel hep</help>
+      <help>help hel hep halp</help>
    </action>
 </keywords>
