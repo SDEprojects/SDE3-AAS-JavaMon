@@ -8,8 +8,7 @@ import javax.swing.*;
 
 public class CombatEngineGui {
     //Class Fields
-
-
+    public Pokemon pokemonToBattle;
     //Constructor
 
     public CombatEngineGui() {
@@ -53,6 +52,10 @@ public class CombatEngineGui {
 
     //Combat loop : encounter with trainer - this is the main combat loop that is called in the game engine.
 
+    public void setOpposingPokemon(Pokemon pokemon){
+        GUI2nd.setPokemonToBattle(pokemon);
+    }
+
     String combatLoopTrainer(Player player, NPCFactory npc, GameEngine game, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay){
 
         String result = "";
@@ -60,13 +63,14 @@ public class CombatEngineGui {
         System.setOut(pokeDisplayOut);
         player.getPlayersPokemon().get(0).displayOutStatsAndAll();
         System.setOut(commonDisplayOut);
-
+        setOpposingPokemon(npc.npcPokemonList.get(0));
 
         //Runs until the player or the opponent is defeated.
 
         while (true){
 
             if(player.playersPokemon.get(0).getCurrentHealth() <= 0){
+
                 result = "Player Lost";
                 break;
             } else if (npc.npcPokemonList.get(0).getCurrentHealth() <= 0){

@@ -126,6 +126,7 @@ public class Room {
 
         StringBuffer sb = new StringBuffer();
 
+        sb.append("ROOM DETAILS: \n");
         sb.append("Your current location: " + this.getName()).append("\n");
 
         sb.append("Location Description: " + this.getDescription()).append("\n");
