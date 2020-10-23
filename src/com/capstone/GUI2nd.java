@@ -170,7 +170,11 @@ public class GUI2nd {
         starterPokemonPanel.add(new JLabel("I'm going on vacation soon... and the flight I'm going on has a strict 1 Pokemon carry on limit."));
         starterPokemonPanel.add(new JLabel("I'm going to need you to look after one while I'm gone! I'll even let you choose who you want to take!"));
         starterPokemonPanel.add(new JLabel("..."));
-
+        starterPokemonPanel.add(new JLabel("Instructions:"));
+        starterPokemonPanel.add(new JLabel("\"Select your pokemon---Click start"));
+        starterPokemonPanel.add(new JLabel("Find location on the right side of the page"));
+        starterPokemonPanel.add(new JLabel("Type appropriate directions in the command block on the bottom of the page"));
+        starterPokemonPanel.add(new JLabel("GET YOUR BATTLE ON!!"));
         //Group the radio buttons.
         ButtonGroup group = new ButtonGroup();
         ActionListener radioButtonListener = new ActionListener() {
@@ -382,9 +386,9 @@ public class GUI2nd {
 
     private JPanel getBorderedPanel(JComponent comp) {
         JPanel p = new JPanel();
-        Border blueLine = BorderFactory.createLineBorder(Color.blue);
+        Border blackLine = BorderFactory.createLineBorder(Color.black);
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        CompoundBorder compound = BorderFactory.createCompoundBorder(blueLine, emptyBorder);
+        CompoundBorder compound = BorderFactory.createCompoundBorder(blackLine, emptyBorder);
         p.setBorder(compound);
         //Add component to the panel
         p.add(comp);
