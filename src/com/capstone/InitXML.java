@@ -173,7 +173,7 @@ public class InitXML {
         try {
 
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
-            File inputFile = new File(String.valueOf(Path.of("data", "PokemonExperimental.txt")));
+            File inputFile = new File(String.valueOf(Path.of("data", "Pokemon.txt")));
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
