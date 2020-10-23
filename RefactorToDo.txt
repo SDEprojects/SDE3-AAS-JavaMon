@@ -1,0 +1,5 @@
+--DONE: fix bug
+--divide into packages (domain classes, UI, controllers/business classes)
+--remove unused/unnecessary code/classes (move into unused package)
+--turn a class static (by turning all methods to static and ctor to private) whenever there is only one instance of them throughout the game
+--remove game logic from UI
