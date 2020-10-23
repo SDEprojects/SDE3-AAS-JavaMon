@@ -1,12 +1,17 @@
-package com.capstone;
+package com.capstone.ui;
+
+import com.capstone.businessclasses.CustomOutputStream;
+import com.capstone.businessclasses.GameEngine;
+import com.capstone.businessclasses.InitXML;
+import com.capstone.businessclasses.TextParserGUI;
+import com.capstone.domainclasses.Player;
+import com.capstone.domainclasses.Pokemon;
+import com.capstone.domainclasses.Room;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -55,7 +60,7 @@ public class GUI2nd {
     private JLabel pokemonImageLabel;
 
     //Path of the starting screen image
-    private String startPageImagePath = "images/pokemon.gif";
+    private String startPageImagePath = "../images/pokemon.gif";
 
     //main method.
     public static void main(String[] args) {
@@ -102,19 +107,19 @@ public class GUI2nd {
      * Create images for various Pokemon types.
      */
     private void createPokemonTypeImages() {
-        String balbasaurPath = "images/Balbasaur-Pokemon.png";
-        String charmanderPath = "images/Charmander-Pokemon.png";
-        String squirtlePath = "images/Squirtle-Pokemon.png";
-        String caterpiePath = "images/Caterpie-Pokemon.png";
-        String geodudePath = "images/Geodude-Pokemon.png";
-        String oddishPath = "images/Oddish-Pokemon.png";
-        String onixPath = "images/Onix-Pokemon.png";
-        String pidgeyPath = "images/Pidgey-Pokemon.png";
-        String pikachuPath = "images/Pikachu-Pokemon.png";
-        String psyduckPath = "images/Psyduck-Pokemon.png";
-        String rattataPath ="images/Rattata-Pokemon.png";
-        String weedlePath = "images/Weedle-Pokemon.png";
-        String zubatPath = "images/Zubat-Pokemon.png";
+        String balbasaurPath = "../images/Balbasaur-Pokemon.png";
+        String charmanderPath = "../images/Charmander-Pokemon.png";
+        String squirtlePath = "../images/Squirtle-Pokemon.png";
+        String caterpiePath = "../images/Caterpie-Pokemon.png";
+        String geodudePath = "../images/Geodude-Pokemon.png";
+        String oddishPath = "../images/Oddish-Pokemon.png";
+        String onixPath = "../images/Onix-Pokemon.png";
+        String pidgeyPath = "../images/Pidgey-Pokemon.png";
+        String pikachuPath = "../images/Pikachu-Pokemon.png";
+        String psyduckPath = "../images/Psyduck-Pokemon.png";
+        String rattataPath ="../images/Rattata-Pokemon.png";
+        String weedlePath = "../images/Weedle-Pokemon.png";
+        String zubatPath = "../images/Zubat-Pokemon.png";
 
         Image balbasaurImg = transformImage(createImageIcon(balbasaurPath, ""), 120, 120);
         Image charmanderImg = transformImage(createImageIcon(charmanderPath, ""), 120, 120);

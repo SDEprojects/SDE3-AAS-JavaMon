@@ -1,7 +1,12 @@
-package com.capstone;
+package com.capstone.businessclasses;
 
 
-import java.util.Collection;
+import com.capstone.domainclasses.NPCFactory;
+import com.capstone.domainclasses.Player;
+import com.capstone.domainclasses.Pokemon;
+import com.capstone.domainclasses.Room;
+import com.capstone.ui.GUI;
+
 import java.util.Scanner;
 
 public class GameEngine {

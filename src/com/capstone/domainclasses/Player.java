@@ -1,9 +1,9 @@
-package com.capstone;
+package com.capstone.domainclasses;
 
+
+import com.capstone.businessclasses.GameEngine;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Player {

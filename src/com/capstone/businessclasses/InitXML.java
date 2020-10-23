@@ -1,5 +1,6 @@
-package com.capstone;
+package com.capstone.businessclasses;
 
+import com.capstone.domainclasses.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

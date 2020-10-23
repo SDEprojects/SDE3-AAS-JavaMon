@@ -1,4 +1,4 @@
-package com.capstone;
+package com.capstone.domainclasses;
 
 public class Item {
     //fields

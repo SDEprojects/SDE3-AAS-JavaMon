@@ -1,17 +1,20 @@
-package com.capstone;
+package com.capstone.businessclasses;
 
-import java.io.PrintStream;
+import com.capstone.domainclasses.NPCFactory;
+import com.capstone.domainclasses.Player;
+import com.capstone.domainclasses.Pokemon;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import javax.swing.*;
 
-public class CombatEngineGui {
+public class CombatEngine {
     //Class Fields
-    public Pokemon pokemonToBattle;
+
+
     //Constructor
 
-    public CombatEngineGui() {
+    public CombatEngine() {
 
     }
 
@@ -34,43 +37,28 @@ public class CombatEngineGui {
     //Basic input validation is used here to limit choices to attack or item.
     String actionPhaseChoiceTrainerBattle(){
         //The userChoice here is what the user chooses to do
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("What would you like to do? <attack> or <item>");
-//        String userChoice = scanner.nextLine();
-
-        String[] options = { "Attack","Use item" };
-        String res = (String) JOptionPane.showInputDialog(null, "What would you like to do? <attack> or <item>", "Attack or use items",
-                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-//
-//
-//        if (!userChoice.equalsIgnoreCase("attack") && !userChoice.equalsIgnoreCase("item")){
-//            System.out.println("You can't do that.");
-//            actionPhaseChoiceTrainerBattle();
-//        }
-        return res;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What would you like to do? <attack> or <item>");
+        String userChoice = scanner.nextLine();
+        if (!userChoice.equalsIgnoreCase("attack") && !userChoice.equalsIgnoreCase("item")){
+            System.out.println("You can't do that.");
+            actionPhaseChoiceTrainerBattle();
+        }
+        return userChoice;
     }
 
     //Combat loop : encounter with trainer - this is the main combat loop that is called in the game engine.
 
-    public void setOpposingPokemon(Pokemon pokemon){
-        GUI2nd.setPokemonToBattle(pokemon);
-    }
-
-    String combatLoopTrainer(Player player, NPCFactory npc, GameEngine game, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay){
+    String combatLoopTrainer(Player player, NPCFactory npc, GameEngine game){
 
         String result = "";
-        pokeDisplay.setText("");
-        System.setOut(pokeDisplayOut);
-        player.getPlayersPokemon().get(0).displayOutStatsAndAll();
-        System.setOut(commonDisplayOut);
-        setOpposingPokemon(npc.npcPokemonList.get(0));
+
 
         //Runs until the player or the opponent is defeated.
 
         while (true){
 
             if(player.playersPokemon.get(0).getCurrentHealth() <= 0){
-
                 result = "Player Lost";
                 break;
             } else if (npc.npcPokemonList.get(0).getCurrentHealth() <= 0){
@@ -104,10 +92,6 @@ public class CombatEngineGui {
                 }
                 //If player's pokemon's hp reaches 0, break out of combat loop
                 opponentAttack(player,npc,game);
-                pokeDisplay.setText("");
-                System.setOut(pokeDisplayOut);
-                player.getPlayersPokemon().get(0).displayOutStatsAndAll();
-                System.setOut(commonDisplayOut);
 
                 if (player.playersPokemon.get(0).getCurrentHealth() <= 0){
                     System.out.println("Your Pokemon fainted!");
@@ -161,12 +145,11 @@ public class CombatEngineGui {
             playerFirstPoke.takeDamage(opponentAttack);
         }
 
-
     }
     //used in the main combat loop to process the action phase. does the damage calc, energy usage etc etc.
     void processActionPhase(String userChoice, Player player, NPCFactory npc, GameEngine game){
 
-        //Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         int playerPokeAttack;
 
@@ -189,23 +172,18 @@ public class CombatEngineGui {
         npcFirstPoke.displayOutStatsAndAll();
 
         //If userChoice is attack
-        if (userChoice.equalsIgnoreCase("Attack")){
+        if (userChoice.equalsIgnoreCase("attack")){
             System.out.println("Which attack would you like to use?");
             playerFirstPoke.getMove1().displayOutAttackStats(playerFirstPoke.getLevel());
             playerFirstPoke.getMove2().displayOutAttackStats(playerFirstPoke.getLevel());
-            String[] attacks = {playerFirstPoke.getMove1().getAttackName(),playerFirstPoke.getMove2().getAttackName(), "back"};
-            String res = (String) JOptionPane.showInputDialog(null, "Which attack would you like to use?", "Attacks",
-                    JOptionPane.PLAIN_MESSAGE, null, attacks, attacks[0]);
-
-
-            //String attackChoice = scanner.nextLine();
+            String attackChoice = scanner.nextLine();
             //If user between attack move one or two
-            if (res.equalsIgnoreCase(playerFirstPoke.getMove1().getAttackName())){
+            if (attackChoice.equalsIgnoreCase(playerFirstPoke.getMove1().getAttackName())){
                 System.out.println(playerFirstPoke.getName() + " use " + playerFirstPoke.getMove1().getAttackName());
                 playerPokeAttack = playerFirstPoke.getMove1().attack(playerFirstPoke.getAttack());
                 playerFirstPoke.getMove1().attackUsed();
                 npcFirstPoke.takeDamage(playerPokeAttack);
-            } else if (res.equalsIgnoreCase(playerFirstPoke.getMove2().getAttackName())){
+            } else if (attackChoice.equalsIgnoreCase(playerFirstPoke.getMove2().getAttackName())){
                 System.out.println(playerFirstPoke.getName() + " use " + playerFirstPoke.getMove2().getAttackName());
                 playerPokeAttack = playerFirstPoke.getMove2().attack(playerFirstPoke.getAttack());
                 playerFirstPoke.getMove2().attackUsed();
@@ -216,34 +194,16 @@ public class CombatEngineGui {
             } else {
                 System.out.println("Invalid entry.");
             }
-
         }
         //If user choice is use item
-        else if (userChoice.equalsIgnoreCase("Use item")){
+        else if (userChoice.equalsIgnoreCase("item")){
             //Display to player their inventory
             player.checkInventory();
 
-            if (player.getInventory().isEmpty()) {
-                System.out.println("You don't have any items to use!");
-            }
-            else {
-                String itemString[] = new String[player.getInventory().size()];
+            System.out.println("Which item would you like to use?");
 
-                // ArrayList to Array Conversion
-                for (int j = 0; j < player.getInventory().size(); j++) {
-                    // Assign each value to String array
-                    itemString[j] = player.getInventory().get(j);
-                }
-
-                System.out.println("Which item would you like to use?");
-
-                String res = (String) JOptionPane.showInputDialog(null, "Which item would you like to use?", "Items",
-                        JOptionPane.PLAIN_MESSAGE, null, itemString, itemString[0]);
-
-                //String itemChoice = scanner.nextLine();
-                game.useItem(res, playerFirstPoke);
-
-            }
+            String itemChoice = scanner.nextLine();
+            game.useItem(itemChoice, playerFirstPoke);
 
         }
 

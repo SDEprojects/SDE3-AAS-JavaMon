@@ -1,4 +1,11 @@
-package com.capstone;
+package com.capstone.ui;
+
+import com.capstone.businessclasses.GameEngine;
+import com.capstone.businessclasses.InitXML;
+import com.capstone.businessclasses.TextParser;
+import com.capstone.domainclasses.Player;
+import com.capstone.domainclasses.Pokemon;
+import com.capstone.domainclasses.Room;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,7 +24,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 

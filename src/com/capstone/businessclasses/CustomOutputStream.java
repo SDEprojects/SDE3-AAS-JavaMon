@@ -1,4 +1,4 @@
-package com.capstone;
+package com.capstone.businessclasses;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -1,5 +1,8 @@
-package com.capstone;
+package com.capstone.businessclasses;
 
+import com.capstone.businessclasses.GameEngine;
+import com.capstone.businessclasses.InitXML;
+import com.capstone.domainclasses.Player;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -8,7 +11,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Scanner;
 

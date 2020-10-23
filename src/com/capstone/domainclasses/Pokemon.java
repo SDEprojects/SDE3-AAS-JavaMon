@@ -1,8 +1,7 @@
-package com.capstone;
+package com.capstone.domainclasses;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
 
 public class Pokemon {
 

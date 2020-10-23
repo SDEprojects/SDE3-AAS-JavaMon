@@ -1,4 +1,4 @@
-package com.capstone;
+package com.capstone.domainclasses;
 
 import java.util.Collection;
 
@@ -89,7 +89,7 @@ public class Room {
     }
 
     //This method displays room information to the user.
-    void displayOutput(){
+    public void displayOutput(){
         //Prints out the name and description of the room.
         System.out.println("Your current location: " + name);
         System.out.println("Location Description: " + description);

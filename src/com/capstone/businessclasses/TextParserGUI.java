@@ -1,5 +1,11 @@
-package com.capstone;
+package com.capstone.businessclasses;
 
+import com.capstone.businessclasses.GameEngine;
+import com.capstone.businessclasses.InitXML;
+import com.capstone.domainclasses.NPCFactory;
+import com.capstone.domainclasses.Player;
+import com.capstone.domainclasses.Pokemon;
+import com.capstone.ui.CombatEngineGui;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -8,14 +14,11 @@ import org.w3c.dom.NodeList;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.awt.*;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
 
 /*The TextParser class parses and validates the user (console) inputs*/
 public class TextParserGUI {
