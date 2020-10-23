@@ -48,7 +48,9 @@ public class GUI2nd {
     private ImageIcon balbasaurIcon;
     private ImageIcon charmanderIcon;
     private ImageIcon squirtleIcon;
-
+    private ImageIcon caterpieIcon;
+    private ImageIcon geodudeIcon;
+    private ImageIcon pikachuIcon;
     //Pokemon Image Label
     private JLabel pokemonImageLabel;
 
@@ -103,14 +105,31 @@ public class GUI2nd {
         String balbasaurPath = "images/Balbasaur-Pokemon.png";
         String charmanderPath = "images/Charmander-Pokemon.png";
         String squirtlePath = "images/Squirtle-Pokemon.png";
+        String caterpiePath = "images/Caterpie-Pokemon.png";
+        String geodudePath = "images/Geodude-Pokemon.png";
+        String oddishPath = "images/Oddish-Pokemon.png";
+        String onixPath = "images/Onix-Pokemon.png";
+        String pidgeyPath = "images/Pidgey-Pokemon.png";
+        String pikachuPath = "images/Pikachu-Pokemon.png";
+        String psyduckPath = "images/Psyduck-Pokemon.png";
+        String rattataPath ="images/Rattata-Pokemon.png";
+        String weedlePath = "images/Weedle-Pokemon.png";
+        String zubatPath = "images/Zubat-Pokemon.png";
 
         Image balbasaurImg = transformImage(createImageIcon(balbasaurPath, ""), 120, 120);
         Image charmanderImg = transformImage(createImageIcon(charmanderPath, ""), 120, 120);
         Image squirtleImg = transformImage(createImageIcon(squirtlePath, ""), 120, 120);
+        Image caterpieImg = transformImage(createImageIcon(caterpiePath, ""), 120, 120);
+        Image geodudeImg = transformImage(createImageIcon(geodudePath, ""), 120, 120);
+        Image pikachuImg = transformImage(createImageIcon(pikachuPath, ""), 120, 120);
+
 
         balbasaurIcon = new ImageIcon(balbasaurImg);
         charmanderIcon = new ImageIcon(charmanderImg);
         squirtleIcon = new ImageIcon(squirtleImg);
+        caterpieIcon = new ImageIcon(caterpieImg);
+        geodudeIcon = new ImageIcon(geodudeImg);
+        pikachuIcon = new ImageIcon(pikachuImg);
     }
 
     /**
@@ -214,9 +233,15 @@ public class GUI2nd {
      * Changes the pokemon image label based on the given pokemon's name
      */
 
+    public static Pokemon setPokemonToBattle(Pokemon pokemon){
+        Pokemon pokemon2 = pokemon;
+        return pokemon2;
+    }
+
+
     protected void setPokemonImageLabel(Pokemon pokemon) {
         switch(pokemon.getName()) {
-            case "Balbasaur":
+            case "Bulbasaur":
                 pokemonImageLabel.setIcon(balbasaurIcon);
                 break;
             case "Charmander":
@@ -224,6 +249,12 @@ public class GUI2nd {
                 break;
             case "Squirtle":
                 pokemonImageLabel.setIcon(squirtleIcon);
+                break;
+            case "Pikachu":
+                pokemonImageLabel.setIcon(pikachuIcon);
+                break;
+            default:
+                // picture of Pokemon logo here?
                 break;
         }
     }
@@ -300,13 +331,16 @@ public class GUI2nd {
         //Create room Panel with room details display
         JPanel roomPanel = new JPanel();
         roomPanel.setLayout(new BorderLayout());
-        roomPanel.add(getBorderedPanel(roomDisplay), BorderLayout.CENTER);
+        pokemonImageLabel = new JLabel("Pokemon You're Battling", caterpieIcon, JLabel.LEFT);
+        roomPanel.add(pokemonImageLabel);
+        roomPanel.add(getBorderedPanel(roomDisplay), BorderLayout.LINE_START);
+        roomPanel.add(getBorderedPanel(pokemonImageLabel), BorderLayout.LINE_END);
 
         //the pokemon Details Panel
         JPanel pokemonPanel = new JPanel();
         pokemonPanel.setLayout(new BoxLayout(pokemonPanel, BoxLayout.PAGE_AXIS));
         pokemonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pokemonImageLabel = new JLabel("", balbasaurIcon, JLabel.CENTER);
+        pokemonImageLabel = new JLabel("Pokemon Stats", JLabel.CENTER);
         pokemonPanel.add(pokemonImageLabel);
         pokemonPanel.add(pokemonDisplay);
 
@@ -317,9 +351,10 @@ public class GUI2nd {
         JPanel middlePanel = new JPanel();
         middlePanel.setLayout(new BorderLayout());
 
-        middlePanel.add(getBorderedPanel(pokemonPanel), BorderLayout.WEST);
-        //middlePanel.add(getBorderedPanel(commonDisplay), BorderLayout.CENTER);
-        middlePanel.add(getBorderedPanel(scroll), BorderLayout.CENTER);
+          middlePanel.add(getBorderedPanel(pokemonPanel), BorderLayout.WEST);
+        // the line below was originally commented out- doesn't work
+        // middlePanel.add(getBorderedPanel(commonDisplay), BorderLayout.CENTER);
+         middlePanel.add(getBorderedPanel(scroll), BorderLayout.CENTER);
         middlePanel.add(getBorderedPanel(mapDisplay), BorderLayout.EAST);
 
         //Setup Main Panel with

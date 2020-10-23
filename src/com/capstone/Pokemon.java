@@ -176,8 +176,6 @@ public class Pokemon {
                 move1 = attacks;
             } else if (attacks.getAttackName().equalsIgnoreCase(move2Name)){
                 move2 = attacks;
-            } else {
-                System.out.println("Finished processing.");
             }
         }
     }

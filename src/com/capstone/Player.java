@@ -1,5 +1,6 @@
 package com.capstone;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -66,6 +67,8 @@ public class Player {
 
     public void checkMap(){
         //displays rooms in the 4 cardinal directions and your current room
+        System.out.println("HERE IS YOUR MAP: ");
+        System.out.println(" ");
         System.out.println("You are currently in: " + this.currentRoom.getName());
         System.out.println("To the North of you is: " + this.currentRoom.getNorthTile());
         System.out.println("To the East of you is: " + this.currentRoom.getEastTile());
