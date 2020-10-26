@@ -15,7 +15,7 @@ import java.util.Collection;
 
 public class InitXML {
     //fields to keep the list of rooms and npc instances referencable
-    public Collection<NPCFactory> listOfNPCs = new ArrayList<>();
+    public Collection<NPC> listOfNPCs = new ArrayList<>();
     public Collection<Room> listOfRooms = new ArrayList<>();
     public Collection<Pokemon> listOfPokemon = new ArrayList<>();
     public Collection<Item> listOfItems = new ArrayList<>();
@@ -23,16 +23,16 @@ public class InitXML {
 
     //basically a getter for the dialog field for the NPC that gets passed to it
     public String npcDialog(String npcName){
-        for (NPCFactory NPC : listOfNPCs) {
-            if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
-                return NPC.getDialog();
+        for (NPC npc : listOfNPCs) {
+            if (npc.getName().toLowerCase().equals(npcName.toLowerCase())) {
+                return npc.getDialog();
             }
         }
         return null;
     }
 
-    public NPCFactory getNPC(String npcName) {
-        for (NPCFactory NPC : listOfNPCs) {
+    public NPC getNPC(String npcName) {
+        for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 return NPC;
             }
@@ -42,7 +42,7 @@ public class InitXML {
 
     //used as a getter for the list of items an npc has
     public Collection<String> npcItem(String npcName){
-        for (NPCFactory NPC : listOfNPCs) {
+        for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 return NPC.getInventory();
             }
@@ -52,7 +52,7 @@ public class InitXML {
 
     //used to clear the npcs' inventories after we receive their items
     public void clearNPCInventory(String npcName) {
-        for (NPCFactory NPC : listOfNPCs) {
+        for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 NPC.clearInventory();
             }
@@ -90,7 +90,7 @@ public class InitXML {
                 String npcItems = npcEle.getElementsByTagName("item").item(0).getTextContent();
                 int npcMoney = Integer.parseInt(npcEle.getElementsByTagName("money").item(0).getTextContent());
                 String npcPokemonName = npcEle.getElementsByTagName("pokemon").item(0).getTextContent();
-                listOfNPCs.add(new NPCFactory(npcName,npcDialog,npcItems,npcMoney,npcPokemonName,listOfPokemon));
+                listOfNPCs.add(new NPC(npcName,npcDialog,npcItems,npcMoney,npcPokemonName,listOfPokemon));
             }
         }
         catch (Exception e) {

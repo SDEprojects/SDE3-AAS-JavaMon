@@ -15,7 +15,7 @@ public class Room {
     private String eastTile; //uses the data from <adjacent_east> in Rooms.txt XML
     private String westTile; //uses the data from <adjacent_west> in Rooms.txt XML
 
-    private NPCFactory npcObj; //NPC object here is the npc that is in this room.
+    private NPC npcObj; //NPC object here is the npc that is in this room.
 
 
 
@@ -33,7 +33,7 @@ public class Room {
     }
 
     //Constructor that allows for npc and interactable instantiation.
-    public Room(String roomName, String roomDescription, String adjNorthTile, String adjSouthTile, String adjEastTile, String adjWestTile, String roomNPC, String roomInteractable , Collection<NPCFactory> dataList) {
+    public Room(String roomName, String roomDescription, String adjNorthTile, String adjSouthTile, String adjEastTile, String adjWestTile, String roomNPC, String roomInteractable , Collection<NPC> dataList) {
         this(roomName, roomDescription, adjNorthTile,adjSouthTile,adjEastTile,adjWestTile);
         npcName = roomNPC;
         interactableItem = roomInteractable;
@@ -46,7 +46,7 @@ public class Room {
         return name;
     }
 
-    public NPCFactory getNpcObj() {
+    public NPC getNpcObj() {
         return npcObj;
     }
 
@@ -80,8 +80,8 @@ public class Room {
         return description;
     }
 
-    void processNPC(Collection<NPCFactory> dataList){
-        for(NPCFactory npc : dataList){
+    void processNPC(Collection<NPC> dataList){
+        for(NPC npc : dataList){
             if (npc.getName() == npcName){
                 npcObj = npc;
             }

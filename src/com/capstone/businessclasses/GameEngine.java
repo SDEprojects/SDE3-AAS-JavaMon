@@ -1,10 +1,8 @@
 package com.capstone.businessclasses;
 
 
-import com.capstone.domainclasses.NPCFactory;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
-import com.capstone.domainclasses.Room;
 
 
 import java.util.Scanner;
