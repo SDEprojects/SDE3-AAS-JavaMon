@@ -1,7 +1,7 @@
 package com.capstone.ui;
 
 import com.capstone.businessclasses.GameEngine;
-import com.capstone.domainclasses.NPCFactory;
+import com.capstone.domainclasses.NPC;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
 
@@ -61,7 +61,7 @@ public class CombatEngineGui {
         GUI2nd.setPokemonToBattle(pokemon);
     }
 
-    public String combatLoopTrainer(Player player, NPCFactory npc, GameEngine game, PrintStream commonDisplayOut,
+    public String combatLoopTrainer(Player player, NPC npc, GameEngine game, PrintStream commonDisplayOut,
                                     PrintStream pokeDisplayOut, JTextArea pokeDisplay){
 
         String result = "";
@@ -127,7 +127,7 @@ public class CombatEngineGui {
     }
 
     //This method is used in the main combat loop , runs after your attack move
-    void opponentAttack(Player player, NPCFactory npc, GameEngine game){
+    void opponentAttack(Player player, NPC npc, GameEngine game){
         int opponentAttack;
         int opponentAttackChoice;
         //New arraylist object to hold the Player's Pokemon and seperate one for npc for combat phase
@@ -170,7 +170,7 @@ public class CombatEngineGui {
 
     }
     //used in the main combat loop to process the action phase. does the damage calc, energy usage etc etc.
-    void processActionPhase(String userChoice, Player player, NPCFactory npc, GameEngine game){
+    void processActionPhase(String userChoice, Player player, NPC npc, GameEngine game){
 
         //Scanner scanner = new Scanner(System.in);
 

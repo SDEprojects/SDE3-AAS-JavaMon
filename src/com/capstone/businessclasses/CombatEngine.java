@@ -1,6 +1,6 @@
 package com.capstone.businessclasses;
 
-import com.capstone.domainclasses.NPCFactory;
+import com.capstone.domainclasses.NPC;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
 
@@ -49,7 +49,7 @@ public class CombatEngine {
 
     //Combat loop : encounter with trainer - this is the main combat loop that is called in the game engine.
 
-    String combatLoopTrainer(Player player, NPCFactory npc, GameEngine game){
+    String combatLoopTrainer(Player player, NPC npc, GameEngine game){
 
         String result = "";
 
@@ -105,7 +105,7 @@ public class CombatEngine {
     }
 
     //This method is used in the main combat loop , runs after your attack move
-    void opponentAttack(Player player, NPCFactory npc, GameEngine game){
+    void opponentAttack(Player player, NPC npc, GameEngine game){
         int opponentAttack;
         int opponentAttackChoice;
         //New arraylist object to hold the Player's Pokemon and seperate one for npc for combat phase
@@ -147,7 +147,7 @@ public class CombatEngine {
 
     }
     //used in the main combat loop to process the action phase. does the damage calc, energy usage etc etc.
-    void processActionPhase(String userChoice, Player player, NPCFactory npc, GameEngine game){
+    void processActionPhase(String userChoice, Player player, NPC npc, GameEngine game){
 
         Scanner scanner = new Scanner(System.in);
 

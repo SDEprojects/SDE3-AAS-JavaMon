@@ -1,8 +1,6 @@
 package com.capstone.businessclasses;
 
-import com.capstone.businessclasses.GameEngine;
-import com.capstone.businessclasses.InitXML;
-import com.capstone.domainclasses.NPCFactory;
+import com.capstone.domainclasses.NPC;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
 import com.capstone.ui.CombatEngineGui;
@@ -81,7 +79,7 @@ public class TextParserGUI {
                     }
                     else if (eElement.getElementsByTagName("engage").item(0).getTextContent().contains(userActions)) {
                         String npcName = player1.getCurrentRoom().getNpcName();
-                        NPCFactory npcActual = game.getNPC(npcName);
+                        NPC npcActual = game.getNPC(npcName);
                         playerInteracts(player1, npcActual, gameEngine, combatEngine,userArgument,commonDisplayOut, pokeDisplayOut, pokeDisplay);
                     } else if (eElement.getElementsByTagName("communicate").item(0).getTextContent().contains(userActions)) {
                         playerTalks(player1, game, userArgument);
@@ -190,7 +188,7 @@ public class TextParserGUI {
         return true;
     }
 
-    private void playerInteracts(Player player1, NPCFactory npc, GameEngine gameEngine, CombatEngineGui combatEngine, String interactable, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
+    private void playerInteracts(Player player1, NPC npc, GameEngine gameEngine, CombatEngineGui combatEngine, String interactable, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
         //for the shop interface
         if (player1.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("shop counter")) {
             //shop interface! Will probably move somewhere and make it a method so that it's not so CLUNKY
