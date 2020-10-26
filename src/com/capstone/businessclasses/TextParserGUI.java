@@ -1,5 +1,6 @@
 package com.capstone.businessclasses;
 
+import com.capstone.domainclasses.Item;
 import com.capstone.domainclasses.NPC;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
@@ -21,7 +22,9 @@ import java.util.Collection;
 /*The TextParser class parses and validates the user (console) inputs*/
 public class TextParserGUI {
 
-    public void checkPlayerCommand(GameEngine gameEngine, CombatEngineGui combatEngine, Player player1, String userInput, PrintStream commonDisplayOut, PrintStream mapDisplayOut, PrintStream roomDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
+    private TextParserGUI(){}
+
+    public static void checkPlayerCommand(CombatEngineGui combatEngine, String userInput, PrintStream commonDisplayOut, PrintStream mapDisplayOut, PrintStream roomDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
     System.setOut(commonDisplayOut);
     try {
         if (inputValidation(userInput)) {
@@ -55,19 +58,19 @@ public class TextParserGUI {
                     Element eElement = (Element) nNode;
                     // for(int a = 0; a < userActions.length; a++)
                     if (eElement.getElementsByTagName("buy").item(0).getTextContent().contains(userActions)) {
-                        if (player1.getCurrentRoom().getInteractableItem().toLowerCase().equals("shop counter")) {
+                        if (Player.getCurrentRoom().getInteractableItem().toLowerCase().equals("shop counter")) {
                             switch (userArgument) {
                                 case "potion":
-                                    player1.buyItem("potion", 100);
+                                    Player.buyItem("potion", 100);
                                     break;
                                 case "super potion":
-                                    player1.buyItem("super potion", 500);
+                                    Player.buyItem("super potion", 500);
                                     break;
                                 case "full heal":
-                                    player1.buyItem("full heal", 1000);
+                                    Player.buyItem("full heal", 1000);
                                     break;
                                 case "revive":
-                                    player1.buyItem("revive", 2500);
+                                    Player.buyItem("revive", 2500);
                                     break;
                                 default:
                                     System.out.println("No such item here to buy!");
@@ -78,11 +81,11 @@ public class TextParserGUI {
                         }
                     }
                     else if (eElement.getElementsByTagName("engage").item(0).getTextContent().contains(userActions)) {
-                        String npcName = player1.getCurrentRoom().getNpcName();
+                        String npcName = Player.getCurrentRoom().getNpcName();
                         NPC npcActual = InitXML.getNPC(npcName);
-                        playerInteracts(player1, npcActual, gameEngine, combatEngine,userArgument,commonDisplayOut, pokeDisplayOut, pokeDisplay);
+                        playerInteracts(npcActual, combatEngine,userArgument,commonDisplayOut, pokeDisplayOut, pokeDisplay);
                     } else if (eElement.getElementsByTagName("communicate").item(0).getTextContent().contains(userActions)) {
-                        playerTalks(player1, userArgument);
+                        playerTalks(userArgument);
                     } else if (eElement.getElementsByTagName("utilize").item(0).getTextContent().contains(userActions)) {
                         if (userInput.split(" ").length <= 2) {
                             System.out.println("Please include which Pokemon you want to use it on");
@@ -90,17 +93,17 @@ public class TextParserGUI {
                         else {
                             String pokemon = userArgument.substring(userArgument.lastIndexOf(" ") + 1);
                             String item = userArgument.substring(0,userArgument.lastIndexOf(" "));
-                            useItem(player1, gameEngine, item,pokemon);
+                            useItem(item,pokemon);
                         }
                     } else if (eElement.getElementsByTagName("check").item(0).getTextContent().contains(userActions)) {
                         if (eElement.getElementsByTagName("bag").item(0).getTextContent().contains(userArgument)) {
-                            player1.checkInventory();
+                            Player.checkInventory();
                         } else if (eElement.getElementsByTagName("pokemon").item(0).getTextContent().contains(userArgument)) {
-                            player1.checkPokemon();
+                            Player.checkPokemon();
                         } else if (eElement.getElementsByTagName("map").item(0).getTextContent().contains(userArgument)) {
                             mapDisplayOut.flush();
                             System.setOut(mapDisplayOut);
-                            player1.checkMap();
+                            Player.checkMap();
                             System.setOut(commonDisplayOut);
                         } else {
                             System.out.println("You don't have that... you can't check it!");
@@ -108,36 +111,36 @@ public class TextParserGUI {
                         }
                     } else if (eElement.getElementsByTagName("get").item(0).getTextContent().contains(userActions)) {
                         if (eElement.getElementsByTagName("help").item(0).getTextContent().contains(userArgument)) {
-                            player1.showHelp();
+                            Player.showHelp();
                         } else {
                             System.out.println("Did you mean to type: get help?");
                             //System.out.println("----------------------------");
                         }
                     } else if (eElement.getElementsByTagName("go").item(0).getTextContent().contains(userActions)) {
-                        if (eElement.getElementsByTagName("up").item(0).getTextContent().contains(userArgument) && player1.validMove("north")) {
+                        if (eElement.getElementsByTagName("up").item(0).getTextContent().contains(userArgument) && Player.validMove("north")) {
                             System.out.println("You go North");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getNorthTile()));
-                            player1.showRoomDetails();
-                        } else if (eElement.getElementsByTagName("down").item(0).getTextContent().contains(userArgument) && player1.validMove("south")) {
+                            Player.setCurrentRoom(InitXML.getRoom(Player.getCurrentRoom().getNorthTile()));
+                            Player.showRoomDetails();
+                        } else if (eElement.getElementsByTagName("down").item(0).getTextContent().contains(userArgument) && Player.validMove("south")) {
                             System.out.println("You go South");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getSouthTile()));
-                            player1.showRoomDetails();
-                        } else if (eElement.getElementsByTagName("left").item(0).getTextContent().contains(userArgument) && player1.validMove("west")) {
+                            Player.setCurrentRoom(InitXML.getRoom(Player.getCurrentRoom().getSouthTile()));
+                            Player.showRoomDetails();
+                        } else if (eElement.getElementsByTagName("left").item(0).getTextContent().contains(userArgument) && Player.validMove("west")) {
                             System.out.println("You go West");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getWestTile()));
-                            player1.showRoomDetails();
-                        } else if (eElement.getElementsByTagName("right").item(0).getTextContent().contains(userArgument) && player1.validMove("east")) {
+                            Player.setCurrentRoom(InitXML.getRoom(Player.getCurrentRoom().getWestTile()));
+                            Player.showRoomDetails();
+                        } else if (eElement.getElementsByTagName("right").item(0).getTextContent().contains(userArgument) && Player.validMove("east")) {
                             System.out.println("You go East");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getEastTile()));
-                            player1.showRoomDetails();
+                            Player.setCurrentRoom(InitXML.getRoom(Player.getCurrentRoom().getEastTile()));
+                            Player.showRoomDetails();
                         } else {
 //                                	System.setOut(commonDisplayOut);
                             System.out.println("Invalid direction, please try again :<");
@@ -161,7 +164,7 @@ public class TextParserGUI {
     System.setOut(System.out);
 }
 
-    public String trimUnnecessaryWords(String input) {
+    private static String trimUnnecessaryWords(String input) {
         // TODO: MOVE WORDSTOIGNORE COLLECTION OUT OF CODE
         ArrayList<String> wordsToIgnore = new ArrayList<String>(Arrays.asList("to", "with", "against", "toward", "the", "a", "an", "for", "at"));
         for(int i = 0; i < input.split(" ").length; i++) {
@@ -173,7 +176,7 @@ public class TextParserGUI {
     }
     // change to package private?
     // make public for unit-testing purpose? APIs available to text private methods but may not be best practice
-    private boolean inputValidation(String input) {
+    private static boolean inputValidation(String input) {
         if (input.isEmpty()) {
             System.out.println("You have not entered any text");
             return false;
@@ -188,9 +191,9 @@ public class TextParserGUI {
         return true;
     }
 
-    private void playerInteracts(Player player1, NPC npc, GameEngine gameEngine, CombatEngineGui combatEngine, String interactable, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
+    private static void playerInteracts(NPC npc, CombatEngineGui combatEngine, String interactable, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
         //for the shop interface
-        if (player1.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("shop counter")) {
+        if (Player.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("shop counter")) {
             //shop interface! Will probably move somewhere and make it a method so that it's not so CLUNKY
             if (interactable.equals("shop counter")) {
                 System.out.println("--------PokeMart--------");
@@ -211,15 +214,15 @@ public class TextParserGUI {
             System.out.println('"' + npc.getDialog() + '"');
             if (!npc.npcPokemonList.isEmpty()) {
                 System.out.println(npc.getName() + " challenges you to a Pokemon Battle!");
-                combatEngine.combatLoopTrainer(player1,npc,gameEngine,commonDisplayOut, pokeDisplayOut, pokeDisplay);
+                combatEngine.combatLoopTrainer(npc,commonDisplayOut, pokeDisplayOut, pokeDisplay);
             }
             else {
                 System.out.println(npc.getName() + " doesn't have a Pokemon to battle with.");
             }
         }
         //for pokecenter healz
-        else if (player1.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("healing station")) {
-            for (Pokemon pokemon:player1.getPlayersPokemon()) {
+        else if (Player.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("healing station")) {
+            for (Pokemon pokemon:Player.getPlayersPokemon()) {
                 pokemon.setCurrentHealth(pokemon.getMaxHealth());
             }
             System.out.println("All your Pokemon are healed to full HP! Thank you for visiting!");
@@ -228,17 +231,17 @@ public class TextParserGUI {
         else System.out.println("Theres no " + interactable + " here to interact with!");
     }
 
-    public void playerTalks(Player player1, String npc) {
+    private static void playerTalks(String npc) {
         //simple check to see if the NPC name in the input is actually in the current room
-        if (player1.getCurrentRoom().getNpcName().toLowerCase().equals(npc.toLowerCase())) {
+        if (Player.getCurrentRoom().getNpcName().toLowerCase().equals(npc.toLowerCase())) {
             //if they are in the room, display their dialog
             System.out.println('"' + InitXML.npcDialog(npc) + '"');
             //when you talk to the npc, if they have an item, they give it to you!
             Collection<String> npcItems = InitXML.npcItem(npc);
             if (npcItems != null) {
                 for (String item: npcItems) {
-                    System.out.println(player1.getCurrentRoom().getNpcName() + " gave you a " + item + "!");
-                    player1.addInventory(item);
+                    System.out.println(Player.getCurrentRoom().getNpcName() + " gave you a " + item + "!");
+                    Player.addInventory(item);
                 }
                 //sets the NPC's inventory to null so they don't give you the items again
                 InitXML.clearNPCInventory(npc);
@@ -248,14 +251,14 @@ public class TextParserGUI {
         //if npc isn't in the room... tell the user that
         else System.out.println("Theres nobody named that here to talk to!");
     }
-    public void useItem(Player player1, GameEngine gameEngine, String item, String pokemon){
+    private static void useItem(String item, String pokemon){
         //TODO IF THERE EVER IS MORE THAN ONE POKEMON... CHANGE THIS TO A FOR instead of .get(0)
-        if (pokemon.toLowerCase().equals(player1.playersPokemon.get(0).getName().toLowerCase())) {
-            if (player1.getInventory().contains(item)){
-                Pokemon actualPokemon = player1.playersPokemon.get(0);
+        if (pokemon.toLowerCase().equals(Player.getPlayersPokemon().get(0).getName().toLowerCase())) {
+            if (Player.getInventory().contains(item)){
+                Pokemon actualPokemon = Player.getPlayersPokemon().get(0);
                 System.out.println("You used a " + item + " on " + pokemon + "!");
-                if (gameEngine.useItem(item,actualPokemon)) {
-                    player1.getInventory().remove(item);
+                if (Item.useItem(item,actualPokemon)) {
+                    Player.getInventory().remove(item);
                 }
             }
             else {

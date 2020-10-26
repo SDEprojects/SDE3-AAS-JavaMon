@@ -1,104 +1,101 @@
 package com.capstone.domainclasses;
 
-
-import com.capstone.businessclasses.GameEngine;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player {
     //fields, name and inventory
-    private String name = "Jay"; //default player name
-    private ArrayList<String> inventory = new ArrayList<>(); //inventory
-    private int money = 9001; //initialize with 100 monies
-    public ArrayList<Pokemon> playersPokemon = new ArrayList<>(); //This collection is where the player's pokemon is saved.
-
-
-
-    //current room field
-    private Room currentRoom;  //to keep track of the current room the player is in
+    private static String name = "Jay"; //default player name
+    private static ArrayList<String> inventory = new ArrayList<>(); //inventory
+    private static int money = 9001; //initialize with 100 monies
+    private static ArrayList<Pokemon> playersPokemon = new ArrayList<>(); //This collection is where the player's pokemon is saved.
+    private static Room currentRoom;  //to keep track of the current room the player is in
 
     //ctors
-    public Player(){
+    private Player(){
     }
 
-    public Player(String name,int money){
-        this.name=name;
-        this.money=money;
-    }
+    // accessors
 
-    public ArrayList<Pokemon> getPlayersPokemon() {
+    public static ArrayList<Pokemon> getPlayersPokemon() {
         return playersPokemon;
     }
 
-    public int getMoney() {
+    public static int getMoney() {
         return money;
     }
-
-    //methods
-    public String getName() {
-        return name;
+    public static void setMoney(int dollars){
+        money=dollars;
     }
 
-    public ArrayList<String> getInventory() {
+    public static String getName() {
+        return name;
+    }
+    public static void setName(String nameInput){
+        name = nameInput;
+    }
+
+    public static ArrayList<String> getInventory() {
         return inventory;
     }
 
-    public void addInventory(String item) {
-        this.inventory.add(item);
+    public static void addInventory(String item) {
+        inventory.add(item);
     } //for later sprints
 
-    public Room getCurrentRoom() {
+    public static Room getCurrentRoom() {
         return currentRoom;
     }
 
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
+    public static void setCurrentRoom(Room room) {
+        currentRoom = room;
     }
+
+
+    // business methods
 
     /*
     *Displays the current room Details
      */
-
-    public void showRoomDetails() {
+    public static void showRoomDetails() {
         String roomDetails = currentRoom.getRoomDetails();
         System.out.println(roomDetails);
     }
 
-    public void checkMap(){
+    public static void checkMap(){
         //displays rooms in the 4 cardinal directions and your current room
         System.out.println("HERE IS YOUR MAP: ");
         System.out.println(" ");
-        System.out.println("You are currently in: " + this.currentRoom.getName());
-        System.out.println("To the North of you is: " + this.currentRoom.getNorthTile());
-        System.out.println("To the East of you is: " + this.currentRoom.getEastTile());
-        System.out.println("To the South of you is: " + this.currentRoom.getSouthTile());
-        System.out.println("To the West of you is: " + this.currentRoom.getWestTile());
+        System.out.println("You are currently in: " + getCurrentRoom().getName());
+        System.out.println("To the North of you is: " + getCurrentRoom().getNorthTile());
+        System.out.println("To the East of you is: " + getCurrentRoom().getEastTile());
+        System.out.println("To the South of you is: " + getCurrentRoom().getSouthTile());
+        System.out.println("To the West of you is: " + getCurrentRoom().getWestTile());
     }
 
-    public void checkInventory(){
+    public static void checkInventory(){
         System.out.println("Items you currently have in your inventory: ");
-        for (String item: this.inventory) {
+        for (String item: getInventory()) {
             System.out.println(item);
         }
         System.out.println("You currently have " + money + " dollars.");
     }
 
-    public void checkPokemon(){
+    public static void checkPokemon(){
         System.out.println("You check your PokeBelt: ");
-        for (Pokemon pokemon: this.playersPokemon) {
+        for (Pokemon pokemon: getPlayersPokemon()) {
             pokemon.displayOutStatsAndAll();
         }
     }
 
-    public void clearInventory(){
+    public static void clearInventory(){
         inventory.clear();
     }
 
-    public void buyItem(String item, int price){
-        if (this.money > price){
-            this.inventory.add(item);
-            this.money -= price;
+    public static void buyItem(String item, int price){
+        if (getMoney() > price){
+            getInventory().add(item);
+            subtractMoney(price);
             System.out.println("You bought a " + item + " with " + price + " dollars! " + money + " remains in your wallet!");
         }
         else {
@@ -106,7 +103,7 @@ public class Player {
         }
     }
 
-    public void useItem(String item, GameEngine engine){
+    public void useItem(String item){
         Scanner scanner = new Scanner(System.in);
         boolean validPokemon = false;
         String pokemonName = "";
@@ -125,7 +122,7 @@ public class Player {
         }
         if (inventory.contains(item)){
             System.out.println("You used a " + item + " on " + pokemonName + "!");
-            if (engine.useItem(item,actualPokemon)) {
+            if (Item.useItem(item,actualPokemon)) {
                 inventory.remove(item);
             }
         }
@@ -134,12 +131,15 @@ public class Player {
         }
     }
 
-    public void addMoney(int amount){
+    public static void addMoney(int amount){
         money += amount;
     }
 
+    public static void subtractMoney(int amount){
+        money -= amount;
+    }
 
-    public void showHelp(){
+    public static void showHelp(){
         //displays a help menu
         System.out.println("~~~~~ Instructions for playing the game! ~~~~~~");
         System.out.println("To move: go <north,east,south, or west");
@@ -151,7 +151,7 @@ public class Player {
     }
 
     //calling this method to makes sure the passed direction is possible to move to
-    public boolean validMove(String direction){
+    public static boolean validMove(String direction){
         //switch cases for the directions
         switch (direction) {
             case "north":

@@ -1,5 +1,6 @@
 package com.capstone.businessclasses;
 
+import com.capstone.domainclasses.Item;
 import com.capstone.domainclasses.NPC;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
@@ -79,7 +80,7 @@ public class CombatEngine {
                 String userChoice = actionPhaseChoiceTrainerBattle();
 
                 //This processes user choice and applies attack from user's choice
-                processActionPhase(userChoice,player,npc,game);
+                processActionPhase(userChoice,player,npc);
                 //If opponent's pokemon's hp reaches 0, break out of combat loop.
                 if (npc.npcPokemonList.get(0).getCurrentHealth() <= 0){
                     System.out.println("The opponent's Pokemon fainted!");
@@ -147,7 +148,7 @@ public class CombatEngine {
 
     }
     //used in the main combat loop to process the action phase. does the damage calc, energy usage etc etc.
-    void processActionPhase(String userChoice, Player player, NPC npc, GameEngine game){
+    void processActionPhase(String userChoice, Player player, NPC npc){
 
         Scanner scanner = new Scanner(System.in);
 
@@ -190,7 +191,7 @@ public class CombatEngine {
                 npcFirstPoke.takeDamage(playerPokeAttack);
 
             } else if (userChoice.equalsIgnoreCase("back")){
-                processActionPhase(userChoice,player,npc, game);
+                processActionPhase(userChoice,player,npc);
             } else {
                 System.out.println("Invalid entry.");
             }
@@ -203,7 +204,7 @@ public class CombatEngine {
             System.out.println("Which item would you like to use?");
 
             String itemChoice = scanner.nextLine();
-            game.useItem(itemChoice, playerFirstPoke);
+            Item.useItem(itemChoice, playerFirstPoke);
 
         }
 
