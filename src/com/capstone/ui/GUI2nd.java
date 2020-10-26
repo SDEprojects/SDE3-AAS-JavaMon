@@ -45,7 +45,6 @@ public class GUI2nd {
     private CombatEngineGui combatEngine = new CombatEngineGui(); // DROP DOWN MENU FOR BATTLES
     private String starter; // We can get rid of this by writing better method
     private Player player1 = new Player();
-    private InitXML game = new InitXML();
     private TextParserGUI parser = new TextParserGUI();
     private JPanel mainPanel;
 
@@ -65,13 +64,13 @@ public class GUI2nd {
     //main method.
     public static void main(String[] args) {
         GUI2nd gui = new GUI2nd();
-        gui.game.initAttacks(); //must be initialized before pokemon
-        gui.game.initPokemon(); //must be initialized before npcs
-        gui.game.initNPCs(); //must be initialized before rooms
-        gui.game.initRooms();
-        gui.game.initItems();
+        InitXML.initAttacks(); //must be initialized before pokemon
+        InitXML.initPokemon(); //must be initialized before npcs
+        InitXML.initNPCs(); //must be initialized before rooms
+        InitXML.initRooms();
+        InitXML.initItems();
         gui.initFrame();
-        gui.chooseStarter(gui.game, gui.player1);
+        gui.chooseStarter(gui.player1);
     }
 
     //initialize the frame components
@@ -162,7 +161,7 @@ public class GUI2nd {
      * Select the Pokemon type.
      */
 
-    public void chooseStarter(InitXML game, Player player) {
+    public void chooseStarter(Player player) {
         JPanel starterPokemonPanel = new JPanel();
         starterPokemonPanel.setLayout(new BoxLayout(starterPokemonPanel, BoxLayout.PAGE_AXIS)); //center the layout here later
 
@@ -212,7 +211,7 @@ public class GUI2nd {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("selected starter: " + starter);
-                for (Pokemon pokemon : game.listOfPokemon) {
+                for (Pokemon pokemon : InitXML.getListOfPokemon()) {
                     if (pokemon.getName().equalsIgnoreCase(starter)) {
                         player.playersPokemon.add(pokemon);
                         System.out.println("You chose: " + starter);
@@ -223,12 +222,14 @@ public class GUI2nd {
 
                             displayOutStatsAndAll(playersFirstPokemon, player);
                             setPokemonImageLabel(playersFirstPokemon);
-                            parser.checkPlayerCommand(game, gameEngine,combatEngine, player1, "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                            parser.checkPlayerCommand(gameEngine,combatEngine, player1, "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
 
                         }
                     }
                 }
             }
+
+
 
         });
 
@@ -304,7 +305,7 @@ public class GUI2nd {
         scroll.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         String roomName = "Oak's Lab";
-        Room startingRoom = game.getRoom(roomName);
+        Room startingRoom = InitXML.getRoom(roomName);
         player1.setCurrentRoom(startingRoom);
 
         //Display room details
@@ -324,9 +325,9 @@ public class GUI2nd {
             @Override
             public void actionPerformed(ActionEvent e) {
                 commonDisplay.setText("");
-                parser.checkPlayerCommand(game, gameEngine,combatEngine, player1, inputTF.getText(), commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                parser.checkPlayerCommand(gameEngine,combatEngine, player1, inputTF.getText(), commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
                 showRoomDetails(player);
-                parser.checkPlayerCommand(game, gameEngine,combatEngine, player1, "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                parser.checkPlayerCommand(gameEngine,combatEngine, player1, "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
                 pokemonDisplay.setText("");
                 System.setOut(pokemonDisplayOut);
                 player1.getPlayersPokemon().get(0).displayOutStatsAndAll();

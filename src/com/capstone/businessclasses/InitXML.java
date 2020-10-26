@@ -15,14 +15,39 @@ import java.util.Collection;
 
 public class InitXML {
     //fields to keep the list of rooms and npc instances referencable
-    public Collection<NPC> listOfNPCs = new ArrayList<>();
-    public Collection<Room> listOfRooms = new ArrayList<>();
-    public Collection<Pokemon> listOfPokemon = new ArrayList<>();
-    public Collection<Item> listOfItems = new ArrayList<>();
-    public Collection<PokeAttack> listOfAttacks = new ArrayList<>();
+    private static Collection<NPC> listOfNPCs = new ArrayList<>();
+    private static Collection<Room> listOfRooms = new ArrayList<>();
+    private static Collection<Pokemon> listOfPokemon = new ArrayList<>();
+    private static Collection<Item> listOfItems = new ArrayList<>();
+    private static Collection<PokeAttack> listOfAttacks = new ArrayList<>();
+
+    private InitXML() {
+
+    }
+
+    //ACCESSORS
+    public static Collection<NPC> getListOfNPCs() {
+        return listOfNPCs;
+    }
+
+    public static Collection<Room> getListOfRooms() {
+        return listOfRooms;
+    }
+
+    public static Collection<Pokemon> getListOfPokemon() {
+        return listOfPokemon;
+    }
+
+    public static Collection<Item> getListOfItems() {
+        return listOfItems;
+    }
+
+    public static Collection<PokeAttack> getListOfAttacks() {
+        return listOfAttacks;
+    }
 
     //basically a getter for the dialog field for the NPC that gets passed to it
-    public String npcDialog(String npcName){
+    public static String npcDialog(String npcName){
         for (NPC npc : listOfNPCs) {
             if (npc.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 return npc.getDialog();
@@ -31,7 +56,7 @@ public class InitXML {
         return null;
     }
 
-    public NPC getNPC(String npcName) {
+    public static NPC getNPC(String npcName) {
         for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 return NPC;
@@ -41,7 +66,7 @@ public class InitXML {
     }
 
     //used as a getter for the list of items an npc has
-    public Collection<String> npcItem(String npcName){
+    public static Collection<String> npcItem(String npcName){
         for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 return NPC.getInventory();
@@ -51,7 +76,7 @@ public class InitXML {
     }
 
     //used to clear the npcs' inventories after we receive their items
-    public void clearNPCInventory(String npcName) {
+    public static void clearNPCInventory(String npcName) {
         for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 NPC.clearInventory();
@@ -60,7 +85,7 @@ public class InitXML {
     }
 
     //getter to return the actual Room object for the room name that gets passed to it
-    public Room getRoom(String roomName) {
+    public static Room getRoom(String roomName) {
         for (Room theRoom : listOfRooms) {
             if (theRoom.getName().equals(roomName)) {
                 return theRoom;
@@ -70,7 +95,7 @@ public class InitXML {
     }
 
     //initialization method for putting all the NPCs in the XML txt file into the listOfNPCS
-    public void initNPCs() {
+    public static void initNPCs() {
         try {
             //big formatting block for taking XML from the provided txt doc "NPCs.txt" in data
             File inputFile = new File(String.valueOf(Path.of("data", "NPCs.txt")));
@@ -100,7 +125,7 @@ public class InitXML {
     }
 
     //same thing as npc but with items
-    public void initItems() {
+    public static void initItems() {
         try {
 
             File inputFile = new File(String.valueOf(Path.of("data", "Item.txt")));
@@ -130,7 +155,7 @@ public class InitXML {
     }
 
     //same thing as NPCs, but for Rooms
-    public void initRooms() {
+    public static void initRooms() {
         try {
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
             File inputFile = new File(String.valueOf(Path.of("data", "Rooms.txt")));
@@ -170,7 +195,7 @@ public class InitXML {
 
     }
 
-    public void initPokemon(){
+    public static void initPokemon(){
         try {
 
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
@@ -217,7 +242,7 @@ public class InitXML {
     }
     //Always initAttacks() method before Pokemon.
     //This method initializes a Pokemon attack moves list
-    public void initAttacks(){
+    public static void initAttacks(){
         try {
 
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data

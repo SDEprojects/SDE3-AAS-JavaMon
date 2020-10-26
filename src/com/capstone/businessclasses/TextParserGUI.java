@@ -21,7 +21,7 @@ import java.util.Collection;
 /*The TextParser class parses and validates the user (console) inputs*/
 public class TextParserGUI {
 
-    public void checkPlayerCommand(InitXML game, GameEngine gameEngine, CombatEngineGui combatEngine, Player player1, String userInput, PrintStream commonDisplayOut, PrintStream mapDisplayOut, PrintStream roomDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
+    public void checkPlayerCommand(GameEngine gameEngine, CombatEngineGui combatEngine, Player player1, String userInput, PrintStream commonDisplayOut, PrintStream mapDisplayOut, PrintStream roomDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
     System.setOut(commonDisplayOut);
     try {
         if (inputValidation(userInput)) {
@@ -79,10 +79,10 @@ public class TextParserGUI {
                     }
                     else if (eElement.getElementsByTagName("engage").item(0).getTextContent().contains(userActions)) {
                         String npcName = player1.getCurrentRoom().getNpcName();
-                        NPC npcActual = game.getNPC(npcName);
+                        NPC npcActual = InitXML.getNPC(npcName);
                         playerInteracts(player1, npcActual, gameEngine, combatEngine,userArgument,commonDisplayOut, pokeDisplayOut, pokeDisplay);
                     } else if (eElement.getElementsByTagName("communicate").item(0).getTextContent().contains(userActions)) {
-                        playerTalks(player1, game, userArgument);
+                        playerTalks(player1, userArgument);
                     } else if (eElement.getElementsByTagName("utilize").item(0).getTextContent().contains(userActions)) {
                         if (userInput.split(" ").length <= 2) {
                             System.out.println("Please include which Pokemon you want to use it on");
@@ -118,25 +118,25 @@ public class TextParserGUI {
                             System.out.println("You go North");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(game.getRoom(player1.getCurrentRoom().getNorthTile()));
+                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getNorthTile()));
                             player1.showRoomDetails();
                         } else if (eElement.getElementsByTagName("down").item(0).getTextContent().contains(userArgument) && player1.validMove("south")) {
                             System.out.println("You go South");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(game.getRoom(player1.getCurrentRoom().getSouthTile()));
+                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getSouthTile()));
                             player1.showRoomDetails();
                         } else if (eElement.getElementsByTagName("left").item(0).getTextContent().contains(userArgument) && player1.validMove("west")) {
                             System.out.println("You go West");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(game.getRoom(player1.getCurrentRoom().getWestTile()));
+                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getWestTile()));
                             player1.showRoomDetails();
                         } else if (eElement.getElementsByTagName("right").item(0).getTextContent().contains(userArgument) && player1.validMove("east")) {
                             System.out.println("You go East");
                             //System.out.println("----------------------------");
                             System.setOut(roomDisplayOut);
-                            player1.setCurrentRoom(game.getRoom(player1.getCurrentRoom().getEastTile()));
+                            player1.setCurrentRoom(InitXML.getRoom(player1.getCurrentRoom().getEastTile()));
                             player1.showRoomDetails();
                         } else {
 //                                	System.setOut(commonDisplayOut);
@@ -228,20 +228,20 @@ public class TextParserGUI {
         else System.out.println("Theres no " + interactable + " here to interact with!");
     }
 
-    public void playerTalks(Player player1, InitXML game, String npc) {
+    public void playerTalks(Player player1, String npc) {
         //simple check to see if the NPC name in the input is actually in the current room
         if (player1.getCurrentRoom().getNpcName().toLowerCase().equals(npc.toLowerCase())) {
             //if they are in the room, display their dialog
-            System.out.println('"' + game.npcDialog(npc) + '"');
+            System.out.println('"' + InitXML.npcDialog(npc) + '"');
             //when you talk to the npc, if they have an item, they give it to you!
-            Collection<String> npcItems = game.npcItem(npc);
+            Collection<String> npcItems = InitXML.npcItem(npc);
             if (npcItems != null) {
                 for (String item: npcItems) {
                     System.out.println(player1.getCurrentRoom().getNpcName() + " gave you a " + item + "!");
                     player1.addInventory(item);
                 }
                 //sets the NPC's inventory to null so they don't give you the items again
-                game.clearNPCInventory(npc);
+                InitXML.clearNPCInventory(npc);
             }
 
         }
