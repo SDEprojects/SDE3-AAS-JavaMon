@@ -13,7 +13,10 @@ import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -163,12 +166,13 @@ public class TextParser {
     System.setOut(System.out);
 }
 
-    private static String trimUnnecessaryWords(String input) {
-        // TODO: MOVE WORDSTOIGNORE COLLECTION OUT OF CODE
-        ArrayList<String> wordsToIgnore = new ArrayList<String>(Arrays.asList("to", "with", "against", "toward", "the", "a", "an", "for", "at"));
-        for(int i = 0; i < input.split(" ").length; i++) {
-            if(wordsToIgnore.contains(input.split(" ")[i]))  {
-                input = input.replace(input.split(" ")[i], "");
+    private static String trimUnnecessaryWords(String input) throws IOException {
+        Path ignoreFile = Path.of("data", "WordsToIgnore.txt");
+        String wordsToIgnore = Files.readString(ignoreFile);
+        ArrayList<String> ignoreList = new ArrayList<String>(Arrays.asList(wordsToIgnore.split("\\r?\\n")));
+        for(String word : input.split(" ")) {
+            if(ignoreList.contains(word))  {
+                input = input.replace(word, "");
             }
         }
         return input;
