@@ -13,7 +13,10 @@ import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -163,14 +166,19 @@ public class TextParser {
     System.setOut(System.out);
 }
 
-    private static String trimUnnecessaryWords(String input) {
-        // TODO: MOVE WORDSTOIGNORE COLLECTION OUT OF CODE
-        ArrayList<String> wordsToIgnore = new ArrayList<String>(Arrays.asList("to", "with", "against", "toward", "the", "a", "an", "for", "at"));
-        for(int i = 0; i < input.split(" ").length; i++) {
-            if(wordsToIgnore.contains(input.split(" ")[i]))  {
-                input = input.replace(input.split(" ")[i], "");
+    private static String trimUnnecessaryWords(String input) throws IOException {
+        // Reads in the contents WordsToIgnore.txt in the data folder
+        Path ignoreFile = Path.of("data", "WordsToIgnore.txt");
+        String wordsToIgnore = Files.readString(ignoreFile);
+        // Creates an arraylist of words from the above file using a regEx to separate by newline characters
+        ArrayList<String> ignoreList = new ArrayList<String>(Arrays.asList(wordsToIgnore.split("\\r?\\n")));
+        // Splits the user's input at spaces and removes a word if it matches any from the above list
+        for(String word : input.split(" ")) {
+            if(ignoreList.contains(word))  {
+                input = input.replace(word, "");
             }
         }
+        // Returns the passed command with any specified prepositions/articles from the file removed
         return input;
     }
     // change to package private?
