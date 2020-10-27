@@ -46,6 +46,16 @@ public class InitXML {
         return listOfAttacks;
     }
 
+
+    public static Pokemon getPokemon(String name) {
+        Pokemon rtnPkmn = null;
+        for(Pokemon pokemon : getListOfPokemon()) {
+            if(pokemon.getName().equalsIgnoreCase(name)){
+                rtnPkmn = pokemon;
+            }
+        }
+        return rtnPkmn;
+    }
     //basically a getter for the dialog field for the NPC that gets passed to it
     public static String npcDialog(String npcName){
         for (NPC npc : listOfNPCs) {
@@ -226,11 +236,11 @@ public class InitXML {
                 int startingExp = Integer.parseInt(pokeEle.getElementsByTagName("startingExp").item(0).getTextContent());
                 String move1 = pokeEle.getElementsByTagName("move1").item(0).getTextContent();
                 String move2 = pokeEle.getElementsByTagName("move2").item(0).getTextContent();
-
+                String imgPath = pokeEle.getElementsByTagName("path").item(0).getTextContent();
 
                 //roomNPC and roomInteractable holds the value from the rooms.txt xml with the npc and interactable tags.
                 //TODO: implement constructor with stats.
-                listOfPokemon.add(new Pokemon(pokemonName, pokemonType, pokeHealth, 5, pokeAttack, move1, move2, listOfAttacks,startingExp)); //Pokelevel is hardcoded here.
+                listOfPokemon.add(new Pokemon(pokemonName, pokemonType, pokeHealth, 5, pokeAttack, move1, move2, listOfAttacks,startingExp, imgPath)); //Pokelevel is hardcoded here.
                 //TODO: implement a way of associating level to room/area/or npc. For now it is hard coded to five.
 
             }

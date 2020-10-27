@@ -88,6 +88,10 @@ public class Player {
         }
     }
 
+    public static void addPokemon(Pokemon pokemon){
+        getPlayersPokemon().add(pokemon);
+    }
+
     public static void clearInventory(){
         inventory.clear();
     }

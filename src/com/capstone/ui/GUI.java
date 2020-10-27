@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -44,12 +45,8 @@ public class GUI {
     private JPanel mainPanel;
 
     //Pokemon Image Icons
-    private ImageIcon balbasaurIcon;
-    private ImageIcon charmanderIcon;
-    private ImageIcon squirtleIcon;
     private ImageIcon caterpieIcon;
-    private ImageIcon geodudeIcon;
-    private ImageIcon pikachuIcon;
+
     //Pokemon Image Label
     private JLabel pokemonImageLabel;
 
@@ -100,35 +97,11 @@ public class GUI {
     /**
      * Create images for various Pokemon types.
      */
+
     private void createPokemonTypeImages() {
-        String balbasaurPath = "../images/Balbasaur-Pokemon.png";
-        String charmanderPath = "../images/Charmander-Pokemon.png";
-        String squirtlePath = "../images/Squirtle-Pokemon.png";
-        String caterpiePath = "../images/Caterpie-Pokemon.png";
-        String geodudePath = "../images/Geodude-Pokemon.png";
-        String oddishPath = "../images/Oddish-Pokemon.png";
-        String onixPath = "../images/Onix-Pokemon.png";
-        String pidgeyPath = "../images/Pidgey-Pokemon.png";
-        String pikachuPath = "../images/Pikachu-Pokemon.png";
-        String psyduckPath = "../images/Psyduck-Pokemon.png";
-        String rattataPath ="../images/Rattata-Pokemon.png";
-        String weedlePath = "../images/Weedle-Pokemon.png";
-        String zubatPath = "../images/Zubat-Pokemon.png";
-
-        Image balbasaurImg = transformImage(createImageIcon(balbasaurPath, ""), 120, 120);
-        Image charmanderImg = transformImage(createImageIcon(charmanderPath, ""), 120, 120);
-        Image squirtleImg = transformImage(createImageIcon(squirtlePath, ""), 120, 120);
-        Image caterpieImg = transformImage(createImageIcon(caterpiePath, ""), 120, 120);
-        Image geodudeImg = transformImage(createImageIcon(geodudePath, ""), 120, 120);
-        Image pikachuImg = transformImage(createImageIcon(pikachuPath, ""), 120, 120);
-
-
-        balbasaurIcon = new ImageIcon(balbasaurImg);
-        charmanderIcon = new ImageIcon(charmanderImg);
-        squirtleIcon = new ImageIcon(squirtleImg);
-        caterpieIcon = new ImageIcon(caterpieImg);
-        geodudeIcon = new ImageIcon(geodudeImg);
-        pikachuIcon = new ImageIcon(pikachuImg);
+        // example for how this was done before. we have setPokemonImageLabel() responsible for this, now
+//        Image balbasaurImg = transformImage(createImageIcon(balbasaurPath, ""), 120, 120);
+//        balbasaurIcon = new ImageIcon(balbasaurImg);
     }
 
     /**
@@ -206,26 +179,16 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("selected starter: " + starter);
-                for (Pokemon pokemon : InitXML.getListOfPokemon()) {
-                    if (pokemon.getName().equalsIgnoreCase(starter)) {
-                        Player.getPlayersPokemon().add(pokemon);
-                        System.out.println("You chose: " + starter);
-                        for (Pokemon playersFirstPokemon : Player.getPlayersPokemon()) {
-                            System.setOut(pokemonDisplayOut);
-                            playersFirstPokemon.displayOutStatsAndAll();
-                            System.setOut(System.out);
-
-                            displayOutStatsAndAll();
-                            setPokemonImageLabel(playersFirstPokemon);
-                            TextParser.checkPlayerCommand("check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
-
-                        }
-                    }
-                }
+                Pokemon playersPokemon = InitXML.getPokemon(starter);
+                Player.addPokemon(playersPokemon);
+                System.out.println("You chose: " + starter);
+                System.setOut(pokemonDisplayOut);
+                playersPokemon.displayOutStatsAndAll();
+                System.setOut(System.out);
+                displayOutStatsAndAll();
+                setPokemonImageLabel(playersPokemon);
+                TextParser.checkPlayerCommand("check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
             }
-
-
-
         });
 
         window.getContentPane().removeAll();
@@ -245,23 +208,8 @@ public class GUI {
 
 
     protected void setPokemonImageLabel(Pokemon pokemon) {
-        switch(pokemon.getName()) {
-            case "Bulbasaur":
-                pokemonImageLabel.setIcon(balbasaurIcon);
-                break;
-            case "Charmander":
-                pokemonImageLabel.setIcon(charmanderIcon);
-                break;
-            case "Squirtle":
-                pokemonImageLabel.setIcon(squirtleIcon);
-                break;
-            case "Pikachu":
-                pokemonImageLabel.setIcon(pikachuIcon);
-                break;
-            default:
-                // picture of Pokemon logo here?
-                break;
-        }
+        pokemonImageLabel.setIcon(new ImageIcon(transformImage(
+                createImageIcon(pokemon.getImgPath(), ""), 120, 120)));
     }
 
     /**
@@ -327,10 +275,8 @@ public class GUI {
                 System.setOut(pokemonDisplayOut);
                 Player.getPlayersPokemon().get(0).displayOutStatsAndAll();
                 System.setOut(System.out);
-
                 inputTF.setText("");
             }
-
         });
 
         //Create room Panel with room details display
