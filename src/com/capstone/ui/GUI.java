@@ -1,9 +1,8 @@
 package com.capstone.ui;
 
 import com.capstone.businessclasses.CustomOutputStream;
-import com.capstone.businessclasses.GameEngine;
 import com.capstone.businessclasses.InitXML;
-import com.capstone.businessclasses.TextParserGUI;
+import com.capstone.businessclasses.TextParser;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
 import com.capstone.domainclasses.Room;
@@ -21,7 +20,7 @@ import javax.swing.border.CompoundBorder;
 *The GUI class for the Pokemon Game.
  */
 
-public class GUI2nd {
+public class GUI {
 
     private JFrame window;
     private JPanel titleNamePanel;
@@ -41,12 +40,7 @@ public class GUI2nd {
     private PrintStream mapDisplayOut = new PrintStream(new CustomOutputStream(mapDisplay));
     PrintStream pokemonDisplayOut = new PrintStream(new CustomOutputStream(pokemonDisplay));
 
-    private GameEngine gameEngine = new GameEngine();
-    private CombatEngineGui combatEngine = new CombatEngineGui(); // DROP DOWN MENU FOR BATTLES
     private String starter; // We can get rid of this by writing better method
-    private Player player1 = new Player();
-    private InitXML game = new InitXML();
-    private TextParserGUI parser = new TextParserGUI();
     private JPanel mainPanel;
 
     //Pokemon Image Icons
@@ -64,14 +58,14 @@ public class GUI2nd {
 
     //main method.
     public static void main(String[] args) {
-        GUI2nd gui = new GUI2nd();
-        gui.game.initAttacks(); //must be initialized before pokemon
-        gui.game.initPokemon(); //must be initialized before npcs
-        gui.game.initNPCs(); //must be initialized before rooms
-        gui.game.initRooms();
-        gui.game.initItems();
+        GUI gui = new GUI();
+        InitXML.initAttacks(); //must be initialized before pokemon
+        InitXML.initPokemon(); //must be initialized before npcs
+        InitXML.initNPCs(); //must be initialized before rooms
+        InitXML.initRooms();
+        InitXML.initItems();
         gui.initFrame();
-        gui.chooseStarter(gui.game, gui.player1);
+        gui.chooseStarter();
     }
 
     //initialize the frame components
@@ -162,7 +156,7 @@ public class GUI2nd {
      * Select the Pokemon type.
      */
 
-    public void chooseStarter(InitXML game, Player player) {
+    public void chooseStarter() {
         JPanel starterPokemonPanel = new JPanel();
         starterPokemonPanel.setLayout(new BoxLayout(starterPokemonPanel, BoxLayout.PAGE_AXIS)); //center the layout here later
 
@@ -212,23 +206,25 @@ public class GUI2nd {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("selected starter: " + starter);
-                for (Pokemon pokemon : game.listOfPokemon) {
+                for (Pokemon pokemon : InitXML.getListOfPokemon()) {
                     if (pokemon.getName().equalsIgnoreCase(starter)) {
-                        player.playersPokemon.add(pokemon);
+                        Player.getPlayersPokemon().add(pokemon);
                         System.out.println("You chose: " + starter);
-                        for (Pokemon playersFirstPokemon : player.playersPokemon) {
+                        for (Pokemon playersFirstPokemon : Player.getPlayersPokemon()) {
                             System.setOut(pokemonDisplayOut);
                             playersFirstPokemon.displayOutStatsAndAll();
                             System.setOut(System.out);
 
-                            displayOutStatsAndAll(playersFirstPokemon, player);
+                            displayOutStatsAndAll();
                             setPokemonImageLabel(playersFirstPokemon);
-                            parser.checkPlayerCommand(game, gameEngine,combatEngine, player1, "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                            TextParser.checkPlayerCommand("check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
 
                         }
                     }
                 }
             }
+
+
 
         });
 
@@ -297,18 +293,18 @@ public class GUI2nd {
      * Display details of the player.
      */
 
-    public void displayOutStatsAndAll(Pokemon pokemon, Player player) {
+    public void displayOutStatsAndAll() {
 
         JScrollPane scroll = new JScrollPane (commonDisplay,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         String roomName = "Oak's Lab";
-        Room startingRoom = game.getRoom(roomName);
-        player1.setCurrentRoom(startingRoom);
+        Room startingRoom = InitXML.getRoom(roomName);
+        Player.setCurrentRoom(startingRoom);
 
         //Display room details
-        showRoomDetails(player);
+        showRoomDetails();
 
         //Create input panel
         JPanel inputP = new JPanel();
@@ -324,12 +320,12 @@ public class GUI2nd {
             @Override
             public void actionPerformed(ActionEvent e) {
                 commonDisplay.setText("");
-                parser.checkPlayerCommand(game, gameEngine,combatEngine, player1, inputTF.getText(), commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
-                showRoomDetails(player);
-                parser.checkPlayerCommand(game, gameEngine,combatEngine, player1, "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                TextParser.checkPlayerCommand(inputTF.getText(), commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                showRoomDetails();
+                TextParser.checkPlayerCommand( "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
                 pokemonDisplay.setText("");
                 System.setOut(pokemonDisplayOut);
-                player1.getPlayersPokemon().get(0).displayOutStatsAndAll();
+                Player.getPlayersPokemon().get(0).displayOutStatsAndAll();
                 System.setOut(System.out);
 
                 inputTF.setText("");
@@ -403,10 +399,10 @@ public class GUI2nd {
     /**
      * Show the details of the current room of the given player.
      */
-    private void showRoomDetails(Player player) {
+    private void showRoomDetails() {
         roomDisplayOut.flush();
         System.setOut(roomDisplayOut);
-        player.showRoomDetails();
+        Player.showRoomDetails();
         System.setOut(System.out);
     }
 }
