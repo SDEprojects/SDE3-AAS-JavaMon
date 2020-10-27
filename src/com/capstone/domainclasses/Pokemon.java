@@ -16,6 +16,7 @@ public class Pokemon {
     private double currentExp; //Current exp until the next level up
     private double expToLevelUp; //This is the exp required to level up to the next level
     private final double expToLevelMultiplier = 1.05;
+    private String imgPath;
 
     public ArrayList<PokeAttack> attacksList = new ArrayList<>();
 
@@ -31,7 +32,7 @@ public class Pokemon {
         name = pokeName;
         type = pokeType;
     }
-    public Pokemon(String pokeName, String pokeType, int hp, int pokeLevel, int attackStat, String move1, String move2, Collection<PokeAttack> attacksList, int startingEXP){
+    public Pokemon(String pokeName, String pokeType, int hp, int pokeLevel, int attackStat, String move1, String move2, Collection<PokeAttack> attacksList, int startingEXP, String imagePath){
         this(pokeName,pokeType);
         maxHealth = hp;
         level = pokeLevel;
@@ -44,8 +45,7 @@ public class Pokemon {
         processMoves(attacksList);
         currentExp = 0;
         expToLevelUp = initialEXPtoLevel;
-
-
+        imgPath = imagePath;
     }
 
 
@@ -106,6 +106,10 @@ public class Pokemon {
 
     public double getExpToLevelUp() {
         return expToLevelUp;
+    }
+
+    public String getImgPath(){
+        return imgPath;
     }
 //Class methods
 
