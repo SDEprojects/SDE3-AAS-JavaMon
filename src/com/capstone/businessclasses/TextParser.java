@@ -4,7 +4,6 @@ import com.capstone.domainclasses.Item;
 import com.capstone.domainclasses.NPC;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
-import com.capstone.ui.CombatEngineGui;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -20,11 +19,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /*The TextParser class parses and validates the user (console) inputs*/
-public class TextParserGUI {
+public class TextParser {
 
-    private TextParserGUI(){}
+    private TextParser(){}
 
-    public static void checkPlayerCommand(CombatEngineGui combatEngine, String userInput, PrintStream commonDisplayOut, PrintStream mapDisplayOut, PrintStream roomDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
+    public static void checkPlayerCommand(String userInput, PrintStream commonDisplayOut, PrintStream mapDisplayOut, PrintStream roomDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
     System.setOut(commonDisplayOut);
     try {
         if (inputValidation(userInput)) {
@@ -83,7 +82,7 @@ public class TextParserGUI {
                     else if (eElement.getElementsByTagName("engage").item(0).getTextContent().contains(userActions)) {
                         String npcName = Player.getCurrentRoom().getNpcName();
                         NPC npcActual = InitXML.getNPC(npcName);
-                        playerInteracts(npcActual, combatEngine,userArgument,commonDisplayOut, pokeDisplayOut, pokeDisplay);
+                        playerInteracts(npcActual, userArgument,commonDisplayOut, pokeDisplayOut, pokeDisplay);
                     } else if (eElement.getElementsByTagName("communicate").item(0).getTextContent().contains(userActions)) {
                         playerTalks(userArgument);
                     } else if (eElement.getElementsByTagName("utilize").item(0).getTextContent().contains(userActions)) {
@@ -191,7 +190,7 @@ public class TextParserGUI {
         return true;
     }
 
-    private static void playerInteracts(NPC npc, CombatEngineGui combatEngine, String interactable, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
+    private static void playerInteracts(NPC npc, String interactable, PrintStream commonDisplayOut, PrintStream pokeDisplayOut, JTextArea pokeDisplay) {
         //for the shop interface
         if (Player.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("shop counter")) {
             //shop interface! Will probably move somewhere and make it a method so that it's not so CLUNKY
@@ -214,7 +213,7 @@ public class TextParserGUI {
             System.out.println('"' + npc.getDialog() + '"');
             if (!npc.npcPokemonList.isEmpty()) {
                 System.out.println(npc.getName() + " challenges you to a Pokemon Battle!");
-                combatEngine.combatLoopTrainer(npc,commonDisplayOut, pokeDisplayOut, pokeDisplay);
+                CombatEngine.combatLoopTrainer(npc,commonDisplayOut, pokeDisplayOut, pokeDisplay);
             }
             else {
                 System.out.println(npc.getName() + " doesn't have a Pokemon to battle with.");

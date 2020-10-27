@@ -2,7 +2,7 @@ package com.capstone.ui;
 
 import com.capstone.businessclasses.CustomOutputStream;
 import com.capstone.businessclasses.InitXML;
-import com.capstone.businessclasses.TextParserGUI;
+import com.capstone.businessclasses.TextParser;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
 import com.capstone.domainclasses.Room;
@@ -20,7 +20,7 @@ import javax.swing.border.CompoundBorder;
 *The GUI class for the Pokemon Game.
  */
 
-public class GUI2nd {
+public class GUI {
 
     private JFrame window;
     private JPanel titleNamePanel;
@@ -40,7 +40,6 @@ public class GUI2nd {
     private PrintStream mapDisplayOut = new PrintStream(new CustomOutputStream(mapDisplay));
     PrintStream pokemonDisplayOut = new PrintStream(new CustomOutputStream(pokemonDisplay));
 
-    private CombatEngineGui combatEngine = new CombatEngineGui(); // DROP DOWN MENU FOR BATTLES
     private String starter; // We can get rid of this by writing better method
     private JPanel mainPanel;
 
@@ -59,7 +58,7 @@ public class GUI2nd {
 
     //main method.
     public static void main(String[] args) {
-        GUI2nd gui = new GUI2nd();
+        GUI gui = new GUI();
         InitXML.initAttacks(); //must be initialized before pokemon
         InitXML.initPokemon(); //must be initialized before npcs
         InitXML.initNPCs(); //must be initialized before rooms
@@ -218,7 +217,7 @@ public class GUI2nd {
 
                             displayOutStatsAndAll();
                             setPokemonImageLabel(playersFirstPokemon);
-                            TextParserGUI.checkPlayerCommand(combatEngine,"check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                            TextParser.checkPlayerCommand("check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
 
                         }
                     }
@@ -321,9 +320,9 @@ public class GUI2nd {
             @Override
             public void actionPerformed(ActionEvent e) {
                 commonDisplay.setText("");
-                TextParserGUI.checkPlayerCommand(combatEngine, inputTF.getText(), commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                TextParser.checkPlayerCommand(inputTF.getText(), commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
                 showRoomDetails();
-                TextParserGUI.checkPlayerCommand(combatEngine, "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
+                TextParser.checkPlayerCommand( "check map", commonDisplayOut, mapDisplayOut, roomDisplayOut,pokemonDisplayOut, pokemonDisplay);
                 pokemonDisplay.setText("");
                 System.setOut(pokemonDisplayOut);
                 Player.getPlayersPokemon().get(0).displayOutStatsAndAll();

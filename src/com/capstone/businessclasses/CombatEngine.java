@@ -1,9 +1,10 @@
-package com.capstone.ui;
+package com.capstone.businessclasses;
 
 import com.capstone.domainclasses.Item;
 import com.capstone.domainclasses.NPC;
 import com.capstone.domainclasses.Player;
 import com.capstone.domainclasses.Pokemon;
+import com.capstone.ui.GUI;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -11,18 +12,18 @@ import java.util.Random;
 import java.util.Scanner;
 import javax.swing.*;
 
-public class CombatEngineGui {
+public class CombatEngine {
     //Class Fields
-    public Pokemon pokemonToBattle;
+    public static Pokemon pokemonToBattle;
     //Constructor
 
-    public CombatEngineGui() {}
+    private CombatEngine() {}
 
     //Class Methods
 
     //Action Phase - this is the phase where the player gets to choose between fight, use item, or run (They cant run from trainer battles)
     //This method is not yet used. Stubbed out and reserved for the wild pokemon encounter.
-    String actionPhaseChoiceWildPoke(){
+    static String actionPhaseChoiceWildPoke(){
         //The userChoice here is what the user chooses to do
         Scanner scanner = new Scanner(System.in);
         String userChoice = scanner.nextLine();
@@ -35,7 +36,7 @@ public class CombatEngineGui {
     }
     //This method is for taking in user input if they want to attack or use item.
     //Basic input validation is used here to limit choices to attack or item.
-    String actionPhaseChoiceTrainerBattle(){
+    static String actionPhaseChoiceTrainerBattle(){
         //The userChoice here is what the user chooses to do
 //        Scanner scanner = new Scanner(System.in);
 //        System.out.println("What would you like to do? <attack> or <item>");
@@ -55,11 +56,11 @@ public class CombatEngineGui {
 
     //Combat loop : encounter with trainer - this is the main combat loop that is called in the game engine.
 
-    public void setOpposingPokemon(Pokemon pokemon){
-        GUI2nd.setPokemonToBattle(pokemon);
+    public static void setOpposingPokemon(Pokemon pokemon){
+        GUI.setPokemonToBattle(pokemon);
     }
 
-    public String combatLoopTrainer(NPC npc, PrintStream commonDisplayOut,
+    public static String combatLoopTrainer(NPC npc, PrintStream commonDisplayOut,
                                     PrintStream pokeDisplayOut, JTextArea pokeDisplay){
 
         String result = "";
@@ -125,7 +126,7 @@ public class CombatEngineGui {
     }
 
     //This method is used in the main combat loop , runs after your attack move
-    void opponentAttack(NPC npc){
+    static void opponentAttack(NPC npc){
         int opponentAttack;
         int opponentAttackChoice;
         //New arraylist object to hold the Player's Pokemon and seperate one for npc for combat phase
@@ -168,7 +169,7 @@ public class CombatEngineGui {
 
     }
     //used in the main combat loop to process the action phase. does the damage calc, energy usage etc etc.
-    void processActionPhase(String userChoice, NPC npc){
+    static void processActionPhase(String userChoice, NPC npc){
 
         //Scanner scanner = new Scanner(System.in);
 
