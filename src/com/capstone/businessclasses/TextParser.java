@@ -167,14 +167,18 @@ public class TextParser {
 }
 
     private static String trimUnnecessaryWords(String input) throws IOException {
+        // Reads in the contents WordsToIgnore.txt in the data folder
         Path ignoreFile = Path.of("data", "WordsToIgnore.txt");
         String wordsToIgnore = Files.readString(ignoreFile);
+        // Creates an arraylist of words from the above file using a regEx to separate by newline characters
         ArrayList<String> ignoreList = new ArrayList<String>(Arrays.asList(wordsToIgnore.split("\\r?\\n")));
+        // Splits the user's input at spaces and removes a word if it matches any from the above list
         for(String word : input.split(" ")) {
             if(ignoreList.contains(word))  {
                 input = input.replace(word, "");
             }
         }
+        // Returns the passed command with any specified prepositions/articles from the file removed
         return input;
     }
     // change to package private?
