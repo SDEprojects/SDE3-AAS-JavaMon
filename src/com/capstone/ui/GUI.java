@@ -263,6 +263,7 @@ public class GUI {
 
         JButton submitB = new JButton("Submit");
         inputP.add(submitB);
+        window.getRootPane().setDefaultButton(submitB);
         submitB.addActionListener(new ActionListener() {
 
             @Override
