@@ -111,6 +111,9 @@ public class TextParser {
                     } else if (eElement.getElementsByTagName("get").item(0).getTextContent().contains(userActions)) {
                         if (eElement.getElementsByTagName("help").item(0).getTextContent().contains(userArgument)) {
                             Player.showHelp();
+                        } else if (InitXML.getListOfPokemon().contains(InitXML.getPokemon(userArgument))) {
+                            Player.addPokemon(InitXML.getPokemon(userArgument));
+                            System.out.println("You've caught " +  InitXML.getPokemon(userArgument).getName() + "!!");
                         } else {
                             System.out.println("Did you mean to type: get help?");
                             //System.out.println("----------------------------");
@@ -233,8 +236,7 @@ public class TextParser {
         }
         //for tall grass
         else if (Player.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("tall grass")) {
-            System.out.println("You've encountered a wild " + Player.getCurrentRoom().getWildPokemon().get(0).getName() + ".\n" +
-                    "Would you like to capture it?");
+            System.out.println("You've encountered a wild " + Player.getCurrentRoom().getWildPokemon().get(0).getName() + ".");
  //          for (Pokemon pokemon : Player.getCurrentRoom().getWildPokemon()) {
  //              System.out.println(pokemon.getName());
  //          }

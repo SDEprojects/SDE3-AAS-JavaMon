@@ -6,7 +6,7 @@
       <utilize>use utilize</utilize>
       <check>check look</check>
       <buy>buy purchase</buy>
-      <get>get</get>
+      <get>get catch</get>
       <go>move go proceed jump walk run leap dance</go>
       <up>north up</up>
       <down>south down</down>
