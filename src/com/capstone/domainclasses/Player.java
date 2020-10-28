@@ -121,7 +121,6 @@ public class Player {
                     actualPokemon = pokeBelt;
                     validPokemon = true;
                 }
-
             }
         }
         if (inventory.contains(item)){

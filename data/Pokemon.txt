@@ -8,7 +8,7 @@
         <startingExp>50</startingExp>
         <move1>Tackle</move1>
         <move2>Vine Whip</move2>
-        <path>../images/Balbasaur-Pokemon.png</path>
+        <path>../images/Bulbasaur-Pokemon.png</path>
     </pokemon>
     <pokemon>
         <name>Charmander</name>
