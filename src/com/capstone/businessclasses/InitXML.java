@@ -194,8 +194,14 @@ public class InitXML {
                 //roomNPC and roomInteractable holds the value from the rooms.txt xml with the npc and interactable tags.
                 String roomNPC = roomEle.getElementsByTagName("npc").item(0).getTextContent();
                 String roomInteractable = roomEle.getElementsByTagName("interactable").item(0).getTextContent();
+                String roomPokemon = roomEle.getElementsByTagName("pokemon").item(0).getTextContent();
+                ArrayList<Pokemon> pokemonList = new ArrayList<>();
 
-                listOfRooms.add(new Room(roomName,roomDescription,roomAdjNorth,roomAdjSouth,roomAdjEast,roomAdjWest, roomNPC, roomInteractable, listOfNPCs));
+                for (String name : roomPokemon.split(" ")) {
+                    pokemonList.add(InitXML.getPokemon(name));
+                }
+
+                listOfRooms.add(new Room(roomName,roomDescription,roomAdjNorth,roomAdjSouth,roomAdjEast,roomAdjWest, roomNPC, roomInteractable, pokemonList, listOfNPCs));
 
             }
         }
