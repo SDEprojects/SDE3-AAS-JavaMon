@@ -1,9 +1,6 @@
 package com.capstone.businessclasses;
 
-import com.capstone.domainclasses.Item;
-import com.capstone.domainclasses.NPC;
-import com.capstone.domainclasses.Player;
-import com.capstone.domainclasses.Pokemon;
+import com.capstone.domainclasses.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -234,6 +231,15 @@ public class TextParser {
             }
             System.out.println("All your Pokemon are healed to full HP! Thank you for visiting!");
         }
+        //for tall grass
+        else if (Player.getCurrentRoom().getInteractableItem().toLowerCase().equals(interactable) && interactable.toLowerCase().equals("tall grass")) {
+            System.out.println("You've encountered a wild " + Player.getCurrentRoom().getWildPokemon().get(0).getName() + ".\n" +
+                    "Would you like to capture it?");
+ //          for (Pokemon pokemon : Player.getCurrentRoom().getWildPokemon()) {
+ //              System.out.println(pokemon.getName());
+ //          }
+        }
+
 
         else System.out.println("Theres no " + interactable + " here to interact with!");
     }

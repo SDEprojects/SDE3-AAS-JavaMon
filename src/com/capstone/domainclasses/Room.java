@@ -1,5 +1,6 @@
 package com.capstone.domainclasses;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Room {
@@ -17,7 +18,7 @@ public class Room {
 
     private NPC npcObj; //NPC object here is the npc that is in this room.
 
-
+    private ArrayList<Pokemon> wildPokemon ; //holds wild pokemon to be caught in the room
 
     //Constructor(s)
 
@@ -33,10 +34,11 @@ public class Room {
     }
 
     //Constructor that allows for npc and interactable instantiation.
-    public Room(String roomName, String roomDescription, String adjNorthTile, String adjSouthTile, String adjEastTile, String adjWestTile, String roomNPC, String roomInteractable , Collection<NPC> dataList) {
+    public Room(String roomName, String roomDescription, String adjNorthTile, String adjSouthTile, String adjEastTile, String adjWestTile, String roomNPC, String roomInteractable, ArrayList<Pokemon> pokemon, Collection<NPC> dataList) {
         this(roomName, roomDescription, adjNorthTile,adjSouthTile,adjEastTile,adjWestTile);
         npcName = roomNPC;
         interactableItem = roomInteractable;
+        wildPokemon = pokemon;
         processNPC(dataList);
     }
 
@@ -73,6 +75,8 @@ public class Room {
     public String getInteractableItem() {
         return interactableItem;
     }
+
+    public ArrayList<Pokemon> getWildPokemon() {return wildPokemon;}
 
     //Business Methods
 
