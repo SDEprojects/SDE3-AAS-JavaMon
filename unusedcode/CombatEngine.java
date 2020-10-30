@@ -1,4 +1,9 @@
-package com.capstone;
+package com.capstone.businessclasses;
+
+import com.capstone.domainclasses.Item;
+import com.capstone.domainclasses.NPC;
+import com.capstone.domainclasses.Player;
+import com.capstone.domainclasses.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -45,7 +50,7 @@ public class CombatEngine {
 
     //Combat loop : encounter with trainer - this is the main combat loop that is called in the game engine.
 
-    String combatLoopTrainer(Player player, NPCFactory npc, GameEngine game){
+    String combatLoopTrainer(Player player, NPC npc, GameEngine game){
 
         String result = "";
 
@@ -75,7 +80,7 @@ public class CombatEngine {
                 String userChoice = actionPhaseChoiceTrainerBattle();
 
                 //This processes user choice and applies attack from user's choice
-                processActionPhase(userChoice,player,npc,game);
+                processActionPhase(userChoice,player,npc);
                 //If opponent's pokemon's hp reaches 0, break out of combat loop.
                 if (npc.npcPokemonList.get(0).getCurrentHealth() <= 0){
                     System.out.println("The opponent's Pokemon fainted!");
@@ -101,7 +106,7 @@ public class CombatEngine {
     }
 
     //This method is used in the main combat loop , runs after your attack move
-    void opponentAttack(Player player, NPCFactory npc, GameEngine game){
+    void opponentAttack(Player player, NPC npc, GameEngine game){
         int opponentAttack;
         int opponentAttackChoice;
         //New arraylist object to hold the Player's Pokemon and seperate one for npc for combat phase
@@ -143,7 +148,7 @@ public class CombatEngine {
 
     }
     //used in the main combat loop to process the action phase. does the damage calc, energy usage etc etc.
-    void processActionPhase(String userChoice, Player player, NPCFactory npc, GameEngine game){
+    void processActionPhase(String userChoice, Player player, NPC npc){
 
         Scanner scanner = new Scanner(System.in);
 
@@ -186,7 +191,7 @@ public class CombatEngine {
                 npcFirstPoke.takeDamage(playerPokeAttack);
 
             } else if (userChoice.equalsIgnoreCase("back")){
-                processActionPhase(userChoice,player,npc, game);
+                processActionPhase(userChoice,player,npc);
             } else {
                 System.out.println("Invalid entry.");
             }
@@ -199,7 +204,7 @@ public class CombatEngine {
             System.out.println("Which item would you like to use?");
 
             String itemChoice = scanner.nextLine();
-            game.useItem(itemChoice, playerFirstPoke);
+            Item.useItem(itemChoice, playerFirstPoke);
 
         }
 

@@ -1,5 +1,6 @@
-package com.capstone;
+package com.capstone.businessclasses;
 
+import com.capstone.domainclasses.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -14,24 +15,59 @@ import java.util.Collection;
 
 public class InitXML {
     //fields to keep the list of rooms and npc instances referencable
-    public Collection<NPCFactory> listOfNPCs = new ArrayList<>();
-    public Collection<Room> listOfRooms = new ArrayList<>();
-    public Collection<Pokemon> listOfPokemon = new ArrayList<>();
-    public Collection<Item> listOfItems = new ArrayList<>();
-    public Collection<PokeAttack> listOfAttacks = new ArrayList<>();
+    private static Collection<NPC> listOfNPCs = new ArrayList<>();
+    private static Collection<Room> listOfRooms = new ArrayList<>();
+    private static Collection<Pokemon> listOfPokemon = new ArrayList<>();
+    private static Collection<Item> listOfItems = new ArrayList<>();
+    private static Collection<PokeAttack> listOfAttacks = new ArrayList<>();
 
+    private InitXML() {
+
+    }
+
+    //ACCESSORS
+    public static Collection<NPC> getListOfNPCs() {
+        return listOfNPCs;
+    }
+
+    public static Collection<Room> getListOfRooms() {
+        return listOfRooms;
+    }
+
+    public static Collection<Pokemon> getListOfPokemon() {
+        return listOfPokemon;
+    }
+
+    public static Collection<Item> getListOfItems() {
+        return listOfItems;
+    }
+
+    public static Collection<PokeAttack> getListOfAttacks() {
+        return listOfAttacks;
+    }
+
+
+    public static Pokemon getPokemon(String name) {
+        Pokemon rtnPkmn = null;
+        for(Pokemon pokemon : getListOfPokemon()) {
+            if(pokemon.getName().equalsIgnoreCase(name)){
+                rtnPkmn = pokemon;
+            }
+        }
+        return rtnPkmn;
+    }
     //basically a getter for the dialog field for the NPC that gets passed to it
-    public String npcDialog(String npcName){
-        for (NPCFactory NPC : listOfNPCs) {
-            if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
-                return NPC.getDialog();
+    public static String npcDialog(String npcName){
+        for (NPC npc : listOfNPCs) {
+            if (npc.getName().toLowerCase().equals(npcName.toLowerCase())) {
+                return npc.getDialog();
             }
         }
         return null;
     }
 
-    public NPCFactory getNPC(String npcName) {
-        for (NPCFactory NPC : listOfNPCs) {
+    public static NPC getNPC(String npcName) {
+        for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 return NPC;
             }
@@ -40,8 +76,8 @@ public class InitXML {
     }
 
     //used as a getter for the list of items an npc has
-    public Collection<String> npcItem(String npcName){
-        for (NPCFactory NPC : listOfNPCs) {
+    public static Collection<String> npcItem(String npcName){
+        for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 return NPC.getInventory();
             }
@@ -50,8 +86,8 @@ public class InitXML {
     }
 
     //used to clear the npcs' inventories after we receive their items
-    public void clearNPCInventory(String npcName) {
-        for (NPCFactory NPC : listOfNPCs) {
+    public static void clearNPCInventory(String npcName) {
+        for (com.capstone.domainclasses.NPC NPC : listOfNPCs) {
             if (NPC.getName().toLowerCase().equals(npcName.toLowerCase())) {
                 NPC.clearInventory();
             }
@@ -59,7 +95,7 @@ public class InitXML {
     }
 
     //getter to return the actual Room object for the room name that gets passed to it
-    public Room getRoom(String roomName) {
+    public static Room getRoom(String roomName) {
         for (Room theRoom : listOfRooms) {
             if (theRoom.getName().equals(roomName)) {
                 return theRoom;
@@ -69,7 +105,7 @@ public class InitXML {
     }
 
     //initialization method for putting all the NPCs in the XML txt file into the listOfNPCS
-    public void initNPCs() {
+    public static void initNPCs() {
         try {
             //big formatting block for taking XML from the provided txt doc "NPCs.txt" in data
             File inputFile = new File(String.valueOf(Path.of("data", "NPCs.txt")));
@@ -89,7 +125,7 @@ public class InitXML {
                 String npcItems = npcEle.getElementsByTagName("item").item(0).getTextContent();
                 int npcMoney = Integer.parseInt(npcEle.getElementsByTagName("money").item(0).getTextContent());
                 String npcPokemonName = npcEle.getElementsByTagName("pokemon").item(0).getTextContent();
-                listOfNPCs.add(new NPCFactory(npcName,npcDialog,npcItems,npcMoney,npcPokemonName,listOfPokemon));
+                listOfNPCs.add(new NPC(npcName,npcDialog,npcItems,npcMoney,npcPokemonName,listOfPokemon));
             }
         }
         catch (Exception e) {
@@ -99,7 +135,7 @@ public class InitXML {
     }
 
     //same thing as npc but with items
-    public void initItems() {
+    public static void initItems() {
         try {
 
             File inputFile = new File(String.valueOf(Path.of("data", "Item.txt")));
@@ -129,7 +165,7 @@ public class InitXML {
     }
 
     //same thing as NPCs, but for Rooms
-    public void initRooms() {
+    public static void initRooms() {
         try {
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
             File inputFile = new File(String.valueOf(Path.of("data", "Rooms.txt")));
@@ -158,8 +194,14 @@ public class InitXML {
                 //roomNPC and roomInteractable holds the value from the rooms.txt xml with the npc and interactable tags.
                 String roomNPC = roomEle.getElementsByTagName("npc").item(0).getTextContent();
                 String roomInteractable = roomEle.getElementsByTagName("interactable").item(0).getTextContent();
+                String roomPokemon = roomEle.getElementsByTagName("pokemon").item(0).getTextContent();
+                ArrayList<Pokemon> pokemonList = new ArrayList<>();
 
-                listOfRooms.add(new Room(roomName,roomDescription,roomAdjNorth,roomAdjSouth,roomAdjEast,roomAdjWest, roomNPC, roomInteractable, listOfNPCs));
+                for (String name : roomPokemon.split(" ")) {
+                    pokemonList.add(InitXML.getPokemon(name));
+                }
+
+                listOfRooms.add(new Room(roomName,roomDescription,roomAdjNorth,roomAdjSouth,roomAdjEast,roomAdjWest, roomNPC, roomInteractable, pokemonList, listOfNPCs));
 
             }
         }
@@ -169,11 +211,11 @@ public class InitXML {
 
     }
 
-    public void initPokemon(){
+    public static void initPokemon(){
         try {
 
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
-            File inputFile = new File(String.valueOf(Path.of("data", "PokemonExperimental.txt")));
+            File inputFile = new File(String.valueOf(Path.of("data", "Pokemon.txt")));
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -200,11 +242,11 @@ public class InitXML {
                 int startingExp = Integer.parseInt(pokeEle.getElementsByTagName("startingExp").item(0).getTextContent());
                 String move1 = pokeEle.getElementsByTagName("move1").item(0).getTextContent();
                 String move2 = pokeEle.getElementsByTagName("move2").item(0).getTextContent();
-
+                String imgPath = pokeEle.getElementsByTagName("path").item(0).getTextContent();
 
                 //roomNPC and roomInteractable holds the value from the rooms.txt xml with the npc and interactable tags.
                 //TODO: implement constructor with stats.
-                listOfPokemon.add(new Pokemon(pokemonName, pokemonType, pokeHealth, 5, pokeAttack, move1, move2, listOfAttacks,startingExp)); //Pokelevel is hardcoded here.
+                listOfPokemon.add(new Pokemon(pokemonName, pokemonType, pokeHealth, 5, pokeAttack, move1, move2, listOfAttacks,startingExp, imgPath)); //Pokelevel is hardcoded here.
                 //TODO: implement a way of associating level to room/area/or npc. For now it is hard coded to five.
 
             }
@@ -216,7 +258,7 @@ public class InitXML {
     }
     //Always initAttacks() method before Pokemon.
     //This method initializes a Pokemon attack moves list
-    public void initAttacks(){
+    public static void initAttacks(){
         try {
 
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
