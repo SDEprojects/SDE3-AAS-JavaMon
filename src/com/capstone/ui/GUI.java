@@ -1,5 +1,6 @@
 package com.capstone.ui;
 
+import com.capstone.businessclasses.CombatEngine;
 import com.capstone.businessclasses.CustomOutputStream;
 import com.capstone.businessclasses.InitXML;
 import com.capstone.businessclasses.TextParser;
@@ -10,7 +11,10 @@ import com.capstone.domainclasses.Room;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.PrintStream;
+import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -23,7 +27,7 @@ import javax.swing.border.CompoundBorder;
 
 public class GUI {
 
-    private JFrame window;
+    private static JFrame window;
     private JPanel titleNamePanel;
     private final Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
 
@@ -31,10 +35,10 @@ public class GUI {
     private String[] choiceActionCommandArr = {"bulbasaur", "charmander", "squirtle"};
 
     // Creates and Initializes the text area.
-    JTextArea commonDisplay = new JTextArea(20,25);
-    JTextArea pokemonDisplay = new JTextArea(20,10);
-    JTextArea mapDisplay = new JTextArea(20,10);
-    JTextArea roomDisplay = new JTextArea(6,50);
+    private static JTextArea commonDisplay = new JTextArea(20,25);
+    private static JTextArea pokemonDisplay = new JTextArea(20,10);
+    private static JTextArea mapDisplay = new JTextArea(20,10);
+    private static JTextArea roomDisplay = new JTextArea(6,50);
 
     private PrintStream roomDisplayOut = new PrintStream(new CustomOutputStream(roomDisplay));
     private PrintStream commonDisplayOut = new PrintStream(new CustomOutputStream(commonDisplay));
@@ -42,13 +46,16 @@ public class GUI {
     PrintStream pokemonDisplayOut = new PrintStream(new CustomOutputStream(pokemonDisplay));
 
     private String starter; // We can get rid of this by writing better method
-    private JPanel mainPanel;
+    private static JPanel mainPanel;
+    private static JScrollPane scroll;
+    private static JPanel inputP;
+    private static JPanel roomPanel;
 
     //Pokemon Image Icons
-    private ImageIcon caterpieIcon;
+    private ImageIcon jigglypuffIcon;
 
     //Pokemon Image Label
-    private JLabel pokemonImageLabel;
+    private static JLabel pokemonImageLabel;
 
     //Path of the starting screen image
     private String startPageImagePath = "../images/pokemon.gif";
@@ -99,9 +106,9 @@ public class GUI {
      */
 
     private void createPokemonTypeImages() {
-        // example for how this was done before. we have setPokemonImageLabel() responsible for this, now
-//        Image balbasaurImg = transformImage(createImageIcon(balbasaurPath, ""), 120, 120);
-//        balbasaurIcon = new ImageIcon(balbasaurImg);
+        String jigglypuffPath = "../images/Jigglypuff-Pokemon.png";
+        Image jigglypuffImg = transformImage(createImageIcon(jigglypuffPath, ""), 120, 120);
+        jigglypuffIcon = new ImageIcon(jigglypuffImg);
     }
 
     /**
@@ -112,7 +119,7 @@ public class GUI {
      * @return
      */
 
-    private Image transformImage(ImageIcon icon, int width, int height) {
+    private static Image transformImage(ImageIcon icon, int width, int height) {
         Image image = icon.getImage(); // transform it
         Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         return newimg;
@@ -136,14 +143,13 @@ public class GUI {
         JLabel pokemonImageLabel = getPokemonImageLabel();
         starterPokemonPanel.add(pokemonImageLabel);
 
-        starterPokemonPanel.add(new JLabel("You're in OakRoom"));
+        starterPokemonPanel.add(new JLabel("You're in Oak's Room"));
         starterPokemonPanel.add(new JLabel("..."));
         starterPokemonPanel.add(new JLabel("Professor Oak: Hey! You're finally here, I've been waiting for you."));
         starterPokemonPanel.add(new JLabel("I'm going on vacation soon... and the flight I'm going on has a strict 1 Pokemon carry on limit."));
         starterPokemonPanel.add(new JLabel("I'm going to need you to look after one while I'm gone! I'll even let you choose who you want to take!"));
         starterPokemonPanel.add(new JLabel("..."));
-        starterPokemonPanel.add(new JLabel("Instructions:"));
-        starterPokemonPanel.add(new JLabel("\"Select your pokemon---Click start"));
+        starterPokemonPanel.add(new JLabel("Select your pokemon---Click start"));
         starterPokemonPanel.add(new JLabel("Find location on the right side of the page"));
         starterPokemonPanel.add(new JLabel("Type appropriate directions in the command block on the bottom of the page"));
         starterPokemonPanel.add(new JLabel("GET YOUR BATTLE ON!!"));
@@ -201,15 +207,15 @@ public class GUI {
      * Changes the pokemon image label based on the given pokemon's name
      */
 
-    public static Pokemon setPokemonToBattle(Pokemon pokemon){
-        Pokemon pokemon2 = pokemon;
-        return pokemon2;
-    }
 
 
     protected void setPokemonImageLabel(Pokemon pokemon) {
-        pokemonImageLabel.setIcon(new ImageIcon(transformImage(
+         pokemonImageLabel.setIcon(new ImageIcon(transformImage(
                 createImageIcon(pokemon.getImgPath(), ""), 120, 120)));
+    }
+
+    private static ImageIcon pokemonBattleImageIcon(Pokemon pokemon){
+        return new ImageIcon(transformImage(new ImageIcon(String.valueOf(Path.of("src/images", pokemon.getName() +"-Pokemon.png"))), 120, 120));
     }
 
     /**
@@ -243,7 +249,7 @@ public class GUI {
 
     public void displayOutStatsAndAll() {
 
-        JScrollPane scroll = new JScrollPane (commonDisplay,
+        scroll = new JScrollPane (commonDisplay,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -255,7 +261,7 @@ public class GUI {
         showRoomDetails();
 
         //Create input panel
-        JPanel inputP = new JPanel();
+        inputP = new JPanel();
         inputP.setLayout(new BoxLayout(inputP, BoxLayout.PAGE_AXIS));
         JTextField inputTF = new JTextField(20);
         inputP.add(new JLabel("Enter your command: "));
@@ -280,19 +286,22 @@ public class GUI {
             }
         });
 
+        // copied over from here first into setDisplay()
+
         //Create room Panel with room details display
-        JPanel roomPanel = new JPanel();
+        roomPanel = new JPanel();
         roomPanel.setLayout(new BorderLayout());
-        pokemonImageLabel = new JLabel("Pokemon You're Battling", caterpieIcon, JLabel.LEFT);
+        pokemonImageLabel = new JLabel("Welcome to Javamon", jigglypuffIcon, JLabel.LEFT);
         roomPanel.add(pokemonImageLabel);
-        roomPanel.add(getBorderedPanel(roomDisplay), BorderLayout.LINE_START);
         roomPanel.add(getBorderedPanel(pokemonImageLabel), BorderLayout.LINE_END);
+        roomPanel.add(getBorderedPanel(roomDisplay), BorderLayout.LINE_START);
+
 
         //the pokemon Details Panel
         JPanel pokemonPanel = new JPanel();
         pokemonPanel.setLayout(new BoxLayout(pokemonPanel, BoxLayout.PAGE_AXIS));
         pokemonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pokemonImageLabel = new JLabel("Pokemon Stats", JLabel.CENTER);
+        pokemonImageLabel = new JLabel("Your Pokemon's Stats", JLabel.CENTER);
         pokemonPanel.add(pokemonImageLabel);
         pokemonPanel.add(pokemonDisplay);
 
@@ -328,11 +337,26 @@ public class GUI {
         window.revalidate();
     }
 
+    public static void updateDisplayWithBattlingPokemon(Pokemon pokemon){
+        pokemonImageLabel = new JLabel("Welcome to Pokemon", pokemonBattleImageIcon(InitXML.getPokemon("Rattata")), JLabel.LEFT);
+        roomPanel.add(pokemonImageLabel);
+        roomPanel.add(getBorderedPanel(pokemonImageLabel), BorderLayout.LINE_END);
+        // when combatlooptrainer calls this method, the correct pokemon object is being passed in
+        // should be able to rule out asynchronous call, right?
+        // Tried casting the String imgPath as a URL, but getClass() can't be called from static context
+            // as it is above in createImageIcon() 237
+        // hard coding imgpath in 211 doesn't work, either
+        // changed "main" filepath in line 219 to src/images instead of just images
+
+        // tried the below method call and still didn't display image
+       //  window.revalidate();
+    }
+
     /**
      * Adds the given component to a JPanel with border.
      */
 
-    private JPanel getBorderedPanel(JComponent comp) {
+    private static JPanel getBorderedPanel(JComponent comp) {
         JPanel p = new JPanel();
         Border blackLine = BorderFactory.createLineBorder(Color.black);
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
