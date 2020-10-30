@@ -28,8 +28,8 @@ public class TextParser {
     try {
         if (inputValidation(userInput)) {
 
-            String userActions = trimUnnecessaryWords(userInput).split(" ")[0].trim();
-            String userArgument = trimUnnecessaryWords(userInput).split(" ", 2)[1].trim();
+            String userActions = trimUnnecessaryWords(userInput).split(" ")[0].trim().toLowerCase();
+            String userArgument = trimUnnecessaryWords(userInput).split(" ", 2)[1].trim().toLowerCase();
 
             File inputFile = new File("data", "keyWords.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -159,9 +159,7 @@ public class TextParser {
         }
 
     } catch (Exception e) {
-        System.out.println("There was an error in the text parser");
-        System.out.println(e.getMessage());
-        System.out.println(e.getStackTrace());
+        System.out.println("Try again! Choose another direction.");
     }
     System.setOut(System.out);
 }

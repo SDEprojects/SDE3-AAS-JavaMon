@@ -56,19 +56,15 @@ public class CombatEngine {
 
     //Combat loop : encounter with trainer - this is the main combat loop that is called in the game engine.
 
-    public static void setOpposingPokemon(Pokemon pokemon){
-        GUI.setPokemonToBattle(pokemon);
-    }
-
     public static String combatLoopTrainer(NPC npc, PrintStream commonDisplayOut,
                                     PrintStream pokeDisplayOut, JTextArea pokeDisplay){
-
+        pokemonToBattle = InitXML.getPokemon(npc.getPokemonName());
+       // GUI.updateDisplayWithBattlingPokemon(pokemonToBattle);
         String result = "";
         pokeDisplay.setText("");
         System.setOut(pokeDisplayOut);
         Player.getPlayersPokemon().get(0).displayOutStatsAndAll();
         System.setOut(commonDisplayOut);
-        setOpposingPokemon(npc.npcPokemonList.get(0));
 
         //Runs until the player or the opponent is defeated.
 
