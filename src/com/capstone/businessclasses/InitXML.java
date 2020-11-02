@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -108,7 +109,7 @@ public class InitXML {
     public static void initNPCs() {
         try {
             //big formatting block for taking XML from the provided txt doc "NPCs.txt" in data
-            File inputFile = new File(String.valueOf(Path.of("data", "NPCs.txt")));
+            InputStream inputFile = InitXML.class.getResourceAsStream("/data/NPCs.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -137,8 +138,7 @@ public class InitXML {
     //same thing as npc but with items
     public static void initItems() {
         try {
-
-            File inputFile = new File(String.valueOf(Path.of("data", "Item.txt")));
+            InputStream inputFile = InitXML.class.getResourceAsStream("/data/Item.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -168,7 +168,7 @@ public class InitXML {
     public static void initRooms() {
         try {
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
-            File inputFile = new File(String.valueOf(Path.of("data", "Rooms.txt")));
+            InputStream inputFile = InitXML.class.getResourceAsStream("/data/Rooms.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -215,7 +215,7 @@ public class InitXML {
         try {
 
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
-            File inputFile = new File(String.valueOf(Path.of("data", "Pokemon.txt")));
+            InputStream inputFile = InitXML.class.getResourceAsStream("/data/Pokemon.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -260,9 +260,8 @@ public class InitXML {
     //This method initializes a Pokemon attack moves list
     public static void initAttacks(){
         try {
-
             //big formatting block for taking XML from the provided txt doc "Rooms.txt" in data
-            File inputFile = new File(String.valueOf(Path.of("data", "AttackMoves.txt")));
+            InputStream inputFile = InitXML.class.getResourceAsStream("/data/AttackMoves.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

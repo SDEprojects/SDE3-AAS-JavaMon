@@ -58,7 +58,7 @@ public class GUI {
     private static JLabel pokemonImageLabel;
 
     //Path of the starting screen image
-    private String startPageImagePath = "../images/pokemon.gif";
+    private String startPageImagePath = "/images/pokemon.png";
 
     //main method.
     public static void main(String[] args) {
@@ -106,7 +106,7 @@ public class GUI {
      */
 
     private void createPokemonTypeImages() {
-        String jigglypuffPath = "../images/Jigglypuff-Pokemon.png";
+        String jigglypuffPath = "/images/Jigglypuff-Pokemon.png";
         Image jigglypuffImg = transformImage(createImageIcon(jigglypuffPath, ""), 120, 120);
         jigglypuffIcon = new ImageIcon(jigglypuffImg);
     }
@@ -234,7 +234,7 @@ public class GUI {
      *
      */
     private ImageIcon createImageIcon(String path, String description) {
-        java.net.URL imgURL = getClass().getResource(path);
+        java.net.URL imgURL = this.getClass().getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL, description);
         } else {
