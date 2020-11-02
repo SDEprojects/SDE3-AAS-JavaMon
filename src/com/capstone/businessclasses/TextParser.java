@@ -9,9 +9,7 @@ import org.w3c.dom.NodeList;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class TextParser {
             String userActions = trimUnnecessaryWords(userInput).split(" ")[0].trim().toLowerCase();
             String userArgument = trimUnnecessaryWords(userInput).split(" ", 2)[1].trim().toLowerCase();
 
-            File inputFile = new File("data", "keyWords.txt");
+            InputStream inputFile = InitXML.class.getResourceAsStream("/data/keyWords.txt");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -166,10 +164,17 @@ public class TextParser {
 
     private static String trimUnnecessaryWords(String input) throws IOException {
         // Reads in the contents WordsToIgnore.txt in the data folder
-        Path ignoreFile = Path.of("data", "WordsToIgnore.txt");
-        String wordsToIgnore = Files.readString(ignoreFile);
+        InputStream inputFile = InitXML.class.getResourceAsStream("/data/WordsToIgnore.txt");
+        InputStreamReader reader = new InputStreamReader(inputFile);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuilder sb = new StringBuilder();
+        String str;
+        while((str = bufferedReader.readLine()) != null) {
+            sb.append(str);
+        }
+        String wordsToIgnore = sb.toString();
         // Creates an arraylist of words from the above file using a regEx to separate by newline characters
-        ArrayList<String> ignoreList = new ArrayList<String>(Arrays.asList(wordsToIgnore.split("\\r?\\n")));
+        ArrayList<String> ignoreList = new ArrayList<String>(Arrays.asList(wordsToIgnore.split(",")));
         // Splits the user's input at spaces and removes a word if it matches any from the above list
         for(String word : input.split(" ")) {
             if(ignoreList.contains(word))  {
