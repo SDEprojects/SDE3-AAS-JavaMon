@@ -1,0 +1,217 @@
+<class>
+    <room>
+        <name>Oak's Lab</name>
+        <description>Pokemon lab located in Pallet Town, the lab is for researching Pokemon!</description>
+        <adjacent_north>Route 1</adjacent_north>
+        <adjacent_south>Lake</adjacent_south>
+        <adjacent_east>Rival's House</adjacent_east>
+        <adjacent_west>My House</adjacent_west>
+        <npc>Professor Oak</npc>
+        <interactable>nothing</interactable>
+         <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Rival's House</name>
+        <description>This is where my rival lives!</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>Oak's Lab</adjacent_west>
+        <npc>Rival Vladimir</npc>
+        <interactable>nothing</interactable>
+         <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Lake</name>
+        <description>Maybe I can go fishing here!</description>
+        <adjacent_north>Oak's Lab</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Angler Andrew</npc>
+        <interactable>nothing</interactable>
+         <pokemon></pokemon>
+    </room>
+    <room>
+        <name>My House</name>
+        <description>Home sweet home!</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>Oak's Lab</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Mom</npc>
+        <interactable>Shop Counter</interactable>
+         <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Route 1</name>
+        <description>Route 1 to Viridian City</description>
+        <adjacent_north>Forest</adjacent_north>
+        <adjacent_south>Oak's Lab</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Trainer Amanda</npc>
+        <interactable>Tall Grass</interactable>
+        <pokemon>Rattata</pokemon>
+    </room>
+    <room>
+        <name>Forest</name>
+        <description>A somewhat dense forest!</description>
+        <adjacent_north>Dark Forest</adjacent_north>
+        <adjacent_south>Route 1</adjacent_south>
+        <adjacent_east>Clearing</adjacent_east>
+        <adjacent_west>Cave Entrance</adjacent_west>
+        <npc>Bug Catcher Sanju</npc>
+        <interactable>Tall Grass</interactable>
+        <pokemon></pokemon>
+
+    </room>
+    <room>
+        <name>Clearing</name>
+        <description>A small clearing at the edge of the forest.</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>Strange House</adjacent_east>
+        <adjacent_west>Forest</adjacent_west>
+        <npc>Adventurer Michael</npc>
+        <interactable>Boulder</interactable>
+        <pokemon></pokemon>
+    </room>
+
+    <room>
+        <name>Strange House</name>
+        <description>A Strange looking house at the edge of the clearing... Inside you see.. </description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>Clearing</adjacent_west>
+        <npc>Zack</npc>
+        <interactable>Psyducks</interactable>
+        <pokemon></pokemon>
+    </room>
+
+
+    <room>
+        <name>Dark Forest</name>
+        <description>A super dense, dark and spooky forest</description>
+        <adjacent_north>Route 2</adjacent_north>
+        <adjacent_south>Forest</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Trainer David</npc>
+        <interactable>Dense Vegetation</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Route 2</name>
+        <description>Route 2 to Viridian City</description>
+        <adjacent_north>Viridian City Pokemon Center</adjacent_north>
+        <adjacent_south>Dark Forest</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Police Officer Laura</npc>
+        <interactable>Short Grass</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Viridian City Pokemon Center</name>
+        <description>Pokemon center is where I can go to heal my Pokemon!</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>Route 2</adjacent_south>
+        <adjacent_east>Viridian City PokeMart</adjacent_east>
+        <adjacent_west>Viridian City Gym Room 1</adjacent_west>
+        <npc>Nurse Didi</npc>
+        <interactable>Healing Station</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Viridian City Gym Room 1</name>
+        <description>Gym Trainer Room</description>
+        <adjacent_north>Viridian City Gym Room 2</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>Viridian City Pokemon Center</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Musician Andrew</npc>
+        <interactable>nothing</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Viridian City Gym Room 2</name>
+        <description>Gym Trainer Room</description>
+        <adjacent_north>Viridian City Gym Room 3</adjacent_north>
+        <adjacent_south>Viridian City Gym Room 1</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Interpreter Everett</npc>
+        <interactable>nothing</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Viridian City Gym Room 3</name>
+        <description>Gym Trainer Room</description>
+        <adjacent_north>Viridian City Gym Final Room</adjacent_north>
+        <adjacent_south>Viridian City Gym Room 2</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Soccer Player Emeke</npc>
+        <interactable>nothing</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Viridian City Gym Final Room</name>
+        <description>Gym Leader: Subash Pokemon Type: Rock</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>Viridian City Gym Room 3</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Gym Leader Subash</npc>
+        <interactable>nothing</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Viridian City PokeMart</name>
+        <description>A place where you can buy items!</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>Viridian City Pokemon Center</adjacent_west>
+        <npc>Employee Chris</npc>
+        <interactable>Shop Counter</interactable>
+        <pokemon></pokemon>
+    </room>
+
+
+    <room>
+        <name>Cave Entrance</name>
+        <description>A ominous looking cave!</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>Dark Cavern</adjacent_south>
+        <adjacent_east>Forest</adjacent_east>
+        <adjacent_west>Hallway</adjacent_west>
+        <npc>Hiker Rajan</npc>
+        <interactable>Hole in the wall</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Dark Cavern</name>
+        <description>It's super dark in here!</description>
+        <adjacent_north>Cave Entrance</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>nothing</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Spelunker Steven</npc>
+        <interactable>Pile of rocks</interactable>
+        <pokemon></pokemon>
+    </room>
+    <room>
+        <name>Hallway</name>
+        <description>Looks like there's a cave-in at the end of the hallway!</description>
+        <adjacent_north>nothing</adjacent_north>
+        <adjacent_south>nothing</adjacent_south>
+        <adjacent_east>Cave Entrance</adjacent_east>
+        <adjacent_west>nothing</adjacent_west>
+        <npc>Team Rocket Grunt Anthony</npc>
+        <interactable>Cave in rubble</interactable>
+        <pokemon></pokemon>
+    </room>
+</class>

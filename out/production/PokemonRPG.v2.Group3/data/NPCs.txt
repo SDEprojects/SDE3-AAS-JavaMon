@@ -1,0 +1,153 @@
+<?xml version = "1.0"?>
+<class>
+    <npc>
+        <name>Professor Oak</name>
+        <dialog>My PokeUber should be getting here soon.. what do you want from me? Here take a potion.</dialog>
+        <item>potion</item>
+        <money>0</money>
+        <pokemon>none</pokemon>
+    </npc>
+    <npc>
+        <name>Nurse Didi</name>
+        <dialog>Would you like to heal your Pokemon? (AT THE COST OF BLOOOOOOOOOOOD)</dialog>
+        <item>potion</item>
+        <money>0</money>
+        <pokemon>none</pokemon>
+    </npc>
+
+    <npc>
+        <name>Gym Leader Subash</name>
+        <dialog>Have you seen the northern lights?</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Onix</pokemon>
+    </npc>
+
+    <npc>
+        <name>Trainer Amanda</name>
+        <dialog>Why you beefing? Wanna Fight?</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Pikachu</pokemon>
+    </npc>
+
+    <npc>
+        <name>Rival Vladimir</name>
+        <dialog>Dude, Pikachu is bomb.</dialog>
+        <item>Rock</item>
+        <money>0</money>
+        <pokemon>Squirtle</pokemon>
+    </npc>
+
+    <npc>
+        <name>Mom</name>
+        <dialog>Be sure to get plenty of rest and eat healthy!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>none</pokemon>
+    </npc>
+
+    <npc>
+        <name>Bug Catcher Sanju</name>
+        <dialog>I will TRY to CATCH all of the bug Pokemons! No EXCEPTIONS!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Weedle</pokemon>
+    </npc>
+
+    <npc>
+        <name>Adventurer Michael</name>
+        <dialog>This forest is nothing! I have mastered the art of mapping and navigating all labyrinths!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Pidgey</pokemon>
+    </npc>
+
+    <npc>
+        <name>Trainer David</name>
+        <dialog>Take a BREAK, let's have a battle!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Oddish</pokemon>
+    </npc>
+
+    <npc>
+        <name>Police Officer Laura</name>
+        <dialog>Why are you acting sus?</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Charmander</pokemon>
+    </npc>
+
+    <npc>
+        <name>Employee Chris</name>
+        <dialog>Welcome to the PokeMart!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>none</pokemon>
+    </npc>
+
+    <npc>
+        <name>Hiker Rajan</name>
+        <dialog>I love the outdoors!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Geodude</pokemon>
+    </npc>
+
+    <npc>
+        <name>Spelunker Steven</name>
+        <dialog>All these Rock-Type Pokemon around here! Im glad I have Plant (Grass-Type) with me!.</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Bellsprout</pokemon>
+    </npc>
+
+    <npc>
+        <name>Team Rocket Grunt Anthony</name>
+        <dialog>You shall not pass!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Machop</pokemon>
+    </npc>
+
+    <npc>
+        <name>Zack</name>
+        <dialog>Have you heard of the tale of the siren head?</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Psyduck</pokemon>
+    </npc>
+
+    <npc>
+        <name>Musician Andrew</name>
+        <dialog>My Pokemon will ROCK your socks!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Jigglypuff</pokemon>
+    </npc>
+
+    <npc>
+        <name>Interpreter Everett</name>
+        <dialog>I can speak to Pokemon.</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Meowth</pokemon>
+    </npc>
+
+    <npc>
+        <name>Soccer Player Emeke</name>
+        <dialog>I didn't know what a Pokemon was until on this week!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Bulbasaur</pokemon>
+    </npc>
+
+    <npc>
+        <name>Angler Andrew</name>
+        <dialog>I cant wait to Sous Vide some tuna steak for dinner!</dialog>
+        <item>none</item>
+        <money>0</money>
+        <pokemon>Goldeen</pokemon>
+    </npc>
+</class>
